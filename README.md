@@ -1,10 +1,10 @@
-<div align="center">
+b<div align="center">
 
 <img src="assets/CodeAlpha-logo.png" width="250" alt="CodeAlpha Logo"/>
 
   <br/>
 
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=44&pause=1000&color=1E90FF&center=true&vCenter=true&width=500&lines=Network+Sniffer" alt="Network Sniffer"/>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=44&pause=1000&color=06B6D4&center=true&vCenter=true&width=600&lines=Secure+Coding+Review" alt="Secure Coding Review"/>
 
 </div>
 
