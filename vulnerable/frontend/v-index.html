@@ -3,78 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Teacher Secure Portal - Secure Academic Management System">
-    <title>Teacher Secure Portal - Login</title>
+    <meta name="description" content="Faculty Secure Portal - Secure Academic Management System">
+    <title>Faculty Secure Portal - Login</title>
     <link rel="stylesheet" href="v-style.css">
 </head>
 <body>
     <div class="container">
-        <!-- Left Panel: Branding Section -->
-        <aside class="branding-section">
-            <div class="branding-content">
-                <!-- Shield Icon with Checkmark -->
-                <div class="university-logo">
-                    <img src="university-logo.png" alt="University Logo">
-                </div>
 
-                <h1 class="brand-title">Teacher Secure Portal</h1>
-                <p class="brand-subtitle">Secure Academic Management System</p>
+    <!-- Left Panel: Branding -->
+    <aside class="branding-section" aria-label="Portal Information">
 
-                <p class="brand-description">
-                    Manage students, attendance and academic records securely.
+        <div class="branding-content">
+
+            <!-- University Logo -->
+            <div class="university-logo">
+                <img
+                    src="../images/logo.png"
+                    alt="University Logo"
+                    width="65"
+                    height="65"
+                >
+            </div>
+
+            <!-- Portal Heading -->
+            <header class="branding-header">
+                <h1 class="brand-title">Login Portal</h1>
+
+                <p class="brand-subtitle">
+                    Secure Academic Management System
                 </p>
 
-                <!-- Feature Indicators -->
-                <ul class="feature-list">
-                    <li>
-                        <span class="feature-icon">◆</span>
-                        <span>Student Management</span>
-                    </li>
-                    <li>
-                        <span class="feature-icon">◆</span>
-                        <span>Attendance Tracking</span>
-                    </li>
-                    <li>
-                        <span class="feature-icon">◆</span>
-                        <span>Academic Records</span>
-                    </li>
-                </ul>
+                <p class="brand-description">
+                    Manage students, attendance, and academic records securely.
+                </p>
+            </header>
 
-                <!-- Decorative Network Element -->
-                <div class="network-decoration">
-                    <div class="node"></div>
-                    <div class="node"></div>
-                    <div class="node"></div>
-                </div>
+            <!-- Portal Features -->
+            <ul class="feature-list" aria-label="Portal Features">
+
+                <li class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">◆</span>
+                    <span>Student Management</span>
+                </li>
+
+                <li class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">◆</span>
+                    <span>Attendance Tracking</span>
+                </li>
+
+                <li class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">◆</span>
+                    <span>Academic Records</span>
+                </li>
+
+            </ul>
+
+            <!-- Decorative Network Element -->
+            <div class="network-decoration" aria-hidden="true">
+                <span class="node"></span>
+                <span class="node"></span>
+                <span class="node"></span>
             </div>
-        </aside>
+
+        </div>
+
+    </aside>
+
 
         <!-- Right Panel: Login Card -->
         <main class="login-section">
             <div class="login-card">
                 <div class="card-header">
-                    <h2>Teacher Login</h2>
+                    <h2>Faculty Login</h2>
                     <p>Sign in to access your academic dashboard.</p>
                 </div>
 
                 <form id="loginForm" method="POST" action="/login" novalidate>
-                    <!-- Teacher ID / Email Field -->
+                    <!-- Faculty ID / Email Field -->
                     <div class="form-group">
-                        <label for="teacherId">Teacher ID / Email</label>
+                        <label for="facultyId">Enter Your Details</Details></label>
                         <input 
                             type="text" 
-                            id="teacherId" 
-                            name="teacher_id" 
-                            placeholder="Enter your teacher ID or email"
+                            id="facultyId" 
+                            name="faculty_id" 
+                            placeholder="Enter your faculty ID or email"
                             required
                             aria-required="true"
                         >
-                        <span class="error-message" id="teacherIdError"></span>
+                        <span class="error-message" id="facultyIdError"></span>
                     </div>
 
                     <!-- Password Field -->
                     <div class="form-group">
-                        <label for="password">Password</label>
                         <div class="password-wrapper">
                             <input 
                                 type="password" 
@@ -95,24 +115,6 @@
                             </button>
                         </div>
                         <span class="error-message" id="passwordError"></span>
-                    </div>
-
-                    <!-- CAPTCHA Verification -->
-                    <div class="form-group captcha-group">
-                        <label for="captchaAnswer">Security Verification</label>
-                        <div class="captcha-question" id="captchaQuestion">
-                            7 + 4 = ?
-                        </div>
-                        <input 
-                            type="number" 
-                            id="captchaAnswer" 
-                            name="captcha_answer" 
-                            placeholder="Enter answer"
-                            required
-                            aria-required="true"
-                            aria-describedby="captchaDescription"
-                        >
-                        <span class="error-message" id="captchaError"></span>
                     </div>
 
                     <!-- Remember Me & Forgot Password -->
@@ -159,7 +161,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>Teacher Secure Portal • Academic Management System</p>
+        <p>Secure Portal • Academic Management System</p>
         <p>© 2026 Secure Coding Review</p>
     </footer>
 

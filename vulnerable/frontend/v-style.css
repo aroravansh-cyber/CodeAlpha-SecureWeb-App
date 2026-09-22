@@ -42,12 +42,21 @@ html, body {
     width: 100%;
     height: 100%;
 }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-    background:
-        linear-gradient(rgba(5, 11, 20, 0.72), rgba(5, 11, 20, 0.72)),
-        url("campus-ng.png") center center / cover no-repeat fixed;
+
+    background-image:
+        linear-gradient(
+            rgba(5, 11, 20, 0.35),
+            rgba(5, 11, 20, 0.35)
+        ),
+        url("../images/campus-bg.png");
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
     color: var(--color-text-primary);
     line-height: 1.6;
     overflow-x: hidden;
@@ -68,6 +77,18 @@ body::before {
     height: 100%;
     position: relative;
     z-index: 1;
+}
+
+.university-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+}
+
+.university-logo img {
+    width: 255px;
+    height: 225px;
+    object-fit: contain;
 }
 
 .branding-section {
@@ -303,51 +324,6 @@ input::placeholder {
 .password-toggle:focus {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
-}
-
-/* CAPTCHA Section */
-.captcha-group {
-    background: rgba(22, 135, 255, 0.05);
-    border: 1px solid var(--color-border-light);
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-}
-
-.captcha-question {
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid var(--color-accent-subtle);
-    padding: 16px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--color-accent);
-    margin-bottom: 12px;
-    letter-spacing: 2px;
-    font-family: 'Courier New', monospace;
-}
-
-.form-text {
-    display: block;
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    margin-top: 6px;
-    font-style: italic;
-}
-
-/* Error Messages */
-.error-message {
-    display: block;
-    font-size: 12px;
-    color: var(--color-error);
-    margin-top: 6px;
-    min-height: 18px;
-}
-
-input.error {
-    border-color: var(--color-error);
-    background: var(--color-error-bg);
 }
 
 /* ========================================
