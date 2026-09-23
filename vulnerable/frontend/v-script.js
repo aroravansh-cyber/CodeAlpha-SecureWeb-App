@@ -1,5 +1,5 @@
 /* ========================================
-   Teacher Secure Portal - JavaScript
+   faculity Secure Portal - JavaScript
    Vulnerable Version for CodeAlpha Auditing
    ======================================== */
 
@@ -8,20 +8,16 @@
 // ========================================
 
 const loginForm = document.getElementById('loginForm');
-const teacherIdInput = document.getElementById('teacherId');
+const faculityIdInput = document.getElementById('faculityId');
 const passwordInput = document.getElementById('password');
 const passwordToggle = document.getElementById('passwordToggle');
-const captchaAnswerInput = document.getElementById('captchaAnswer');
 const signInBtn = document.getElementById('signInBtn');
 const rememberMeCheckbox = document.getElementById('rememberMe');
 
 // Error message elements
-const teacherIdError = document.getElementById('teacherIdError');
+const faculityIdError = document.getElementById('faculityIdError');
 const passwordError = document.getElementById('passwordError');
-const captchaError = document.getElementById('captchaError');
 
-// CAPTCHA correct answer (7 + 4 = 11)
-const CAPTCHA_ANSWER = 11;
 
 // ========================================
 // Password Show/Hide Toggle
@@ -52,12 +48,12 @@ function togglePasswordVisibility() {
 // Form Validation
 // ========================================
 
-function validateTeacherId(value) {
+function validatefaculityId(value) {
     if (!value || value.trim() === '') {
-        return 'Teacher ID or email is required';
+        return 'faculity ID or email is required';
     }
     if (value.trim().length < 3) {
-        return 'Teacher ID or email must be at least 3 characters';
+        return 'faculity ID or email must be at least 3 characters';
     }
     return '';
 }
@@ -72,36 +68,20 @@ function validatePassword(value) {
     return '';
 }
 
-function validateCaptcha(value) {
-    if (!value || value.trim() === '') {
-        return 'Security answer is required';
-    }
-    
-    const numValue = parseInt(value, 10);
-    if (isNaN(numValue)) {
-        return 'Please enter a valid number';
-    }
-    
-    if (numValue !== CAPTCHA_ANSWER) {
-        return 'Incorrect answer. Please try again.';
-    }
-    
-    return '';
-}
 
 // ========================================
 // Real-time Validation
 // ========================================
 
-teacherIdInput.addEventListener('blur', function() {
-    const error = validateTeacherId(this.value);
-    displayError(this, error, teacherIdError);
+faculityIdInput.addEventListener('blur', function() {
+    const error = validatefaculityId(this.value);
+    displayError(this, error, faculityIdError);
 });
 
-teacherIdInput.addEventListener('input', function() {
+faculityIdInput.addEventListener('input', function() {
     if (this.classList.contains('error')) {
-        const error = validateTeacherId(this.value);
-        displayError(this, error, teacherIdError);
+        const error = validatefaculityId(this.value);
+        displayError(this, error, faculityIdError);
     }
 });
 
@@ -114,18 +94,6 @@ passwordInput.addEventListener('input', function() {
     if (this.classList.contains('error')) {
         const error = validatePassword(this.value);
         displayError(this, error, passwordError);
-    }
-});
-
-captchaAnswerInput.addEventListener('blur', function() {
-    const error = validateCaptcha(this.value);
-    displayError(this, error, captchaError);
-});
-
-captchaAnswerInput.addEventListener('input', function() {
-    if (this.classList.contains('error')) {
-        const error = validateCaptcha(this.value);
-        displayError(this, error, captchaError);
     }
 });
 
@@ -148,13 +116,11 @@ function displayError(inputElement, errorMessage, errorElement) {
 // ========================================
 
 function clearAllErrors() {
-    teacherIdInput.classList.remove('error');
+    faculityIdInput.classList.remove('error');
     passwordInput.classList.remove('error');
-    captchaAnswerInput.classList.remove('error');
     
-    teacherIdError.textContent = '';
+    faculityIdError.textContent = '';
     passwordError.textContent = '';
-    captchaError.textContent = '';
 }
 
 // ========================================
@@ -168,21 +134,18 @@ loginForm.addEventListener('submit', function(event) {
     clearAllErrors();
     
     // Validate all fields
-    const teacherIdVal = teacherIdInput.value;
+    const faculityIdVal = faculityIdInput.value;
     const passwordVal = passwordInput.value;
-    const captchaVal = captchaAnswerInput.value;
-    
-    const teacherIdErr = validateTeacherId(teacherIdVal);
+  
+    const faculityIdErr = validatefaculityId(faculityIdVal);
     const passwordErr = validatePassword(passwordVal);
-    const captchaErr = validateCaptcha(captchaVal);
     
     // Display any errors
-    if (teacherIdErr) displayError(teacherIdInput, teacherIdErr, teacherIdError);
+    if (faculityIdErr) displayError(faculityIdInput, faculityIdErr, faculityIdError);
     if (passwordErr) displayError(passwordInput, passwordErr, passwordError);
-    if (captchaErr) displayError(captchaAnswerInput, captchaErr, captchaError);
     
     // If there are validation errors, don't proceed
-    if (teacherIdErr || passwordErr || captchaErr) {
+    if (faculityIdErr || passwordErr) {
         return;
     }
     
@@ -205,15 +168,31 @@ loginForm.addEventListener('submit', function(event) {
     // Submit the form to the backend
     // The action attribute is set to "/login" in the HTML
     // This will be a POST request to the Flask backend
-    setTimeout(function() {
-        // In a real scenario, the browser would handle form submission
-        // For now, we show the loading state briefly
-        // The actual submission depends on backend availability
-        
-        // Note: In development, if no backend is running,
-        // the browser will handle this based on the form's action attribute
-        loginForm.submit();
-    }, 500);
+    fetch("http://127.0.0.1:5000/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            faculty_id: faculityIdVal,
+            password: passwordVal
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        hideLoadingState();
+
+        if (data.success) {
+            alert("Login successful!");
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        hideLoadingState();
+        console.error("Backend error:", error);
+        alert("Unable to connect to backend.");
+    });
 });
 
 // ========================================
@@ -238,20 +217,6 @@ window.addEventListener('pageshow', function(event) {
         hideLoadingState();
     }
 });
-
-// ========================================
-// CAPTCHA Reset (Optional Enhancement)
-// ========================================
-
-// You could add a button to regenerate CAPTCHA questions in the future
-// For now, the CAPTCHA question remains static (7 + 4 = ?)
-
-function resetCaptcha() {
-    captchaAnswerInput.value = '';
-    captchaError.textContent = '';
-    captchaAnswerInput.classList.remove('error');
-    captchaAnswerInput.focus();
-}
 
 // ========================================
 // Accessibility: Focus Management
