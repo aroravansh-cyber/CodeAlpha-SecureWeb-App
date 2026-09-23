@@ -1,5 +1,5 @@
 /* ========================================
-   faculity Secure Portal - JavaScript
+   faculty Secure Portal - JavaScript
    Vulnerable Version for CodeAlpha Auditing
    ======================================== */
 
@@ -8,14 +8,14 @@
 // ========================================
 
 const loginForm = document.getElementById('loginForm');
-const faculityIdInput = document.getElementById('faculityId');
+const facultyIdInput = document.getElementById('facultyId');
 const passwordInput = document.getElementById('password');
 const passwordToggle = document.getElementById('passwordToggle');
 const signInBtn = document.getElementById('signInBtn');
 const rememberMeCheckbox = document.getElementById('rememberMe');
 
 // Error message elements
-const faculityIdError = document.getElementById('faculityIdError');
+const facultyIdError = document.getElementById('facultyIdError');
 const passwordError = document.getElementById('passwordError');
 
 
@@ -48,12 +48,12 @@ function togglePasswordVisibility() {
 // Form Validation
 // ========================================
 
-function validatefaculityId(value) {
+function validatefacultyId(value) {
     if (!value || value.trim() === '') {
-        return 'faculity ID or email is required';
+        return 'faculty ID or email is required';
     }
     if (value.trim().length < 3) {
-        return 'faculity ID or email must be at least 3 characters';
+        return 'faculty ID or email must be at least 3 characters';
     }
     return '';
 }
@@ -73,15 +73,15 @@ function validatePassword(value) {
 // Real-time Validation
 // ========================================
 
-faculityIdInput.addEventListener('blur', function() {
-    const error = validatefaculityId(this.value);
-    displayError(this, error, faculityIdError);
+facultyIdInput.addEventListener('blur', function() {
+    const error = validatefacultyId(this.value);
+    displayError(this, error, facultyIdError);
 });
 
-faculityIdInput.addEventListener('input', function() {
+facultyIdInput.addEventListener('input', function() {
     if (this.classList.contains('error')) {
-        const error = validatefaculityId(this.value);
-        displayError(this, error, faculityIdError);
+        const error = validatefacultyId(this.value);
+        displayError(this, error, facultyIdError);
     }
 });
 
@@ -116,10 +116,10 @@ function displayError(inputElement, errorMessage, errorElement) {
 // ========================================
 
 function clearAllErrors() {
-    faculityIdInput.classList.remove('error');
+    facultyIdInput.classList.remove('error');
     passwordInput.classList.remove('error');
     
-    faculityIdError.textContent = '';
+    facultyIdError.textContent = '';
     passwordError.textContent = '';
 }
 
@@ -134,18 +134,18 @@ loginForm.addEventListener('submit', function(event) {
     clearAllErrors();
     
     // Validate all fields
-    const faculityIdVal = faculityIdInput.value;
+    const facultyIdVal = facultyIdInput.value;
     const passwordVal = passwordInput.value;
   
-    const faculityIdErr = validatefaculityId(faculityIdVal);
+    const facultyIdErr = validatefacultyId(facultyIdVal);
     const passwordErr = validatePassword(passwordVal);
     
     // Display any errors
-    if (faculityIdErr) displayError(faculityIdInput, faculityIdErr, faculityIdError);
+    if (facultyIdErr) displayError(facultyIdInput, facultyIdErr, facultyIdError);
     if (passwordErr) displayError(passwordInput, passwordErr, passwordError);
     
     // If there are validation errors, don't proceed
-    if (faculityIdErr || passwordErr) {
+    if (facultyIdErr || passwordErr) {
         return;
     }
     
@@ -174,7 +174,7 @@ loginForm.addEventListener('submit', function(event) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            faculty_id: faculityIdVal,
+            faculty_id: facultyIdVal,
             password: passwordVal
         })
     })
