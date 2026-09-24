@@ -176,8 +176,8 @@ body.light-theme .moon-icon {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 20% 80%, rgba(0, 168, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.08) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 80%, rgba(0, 168, 255, 0.08) 0%, transparent 5%),
+                radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.08) 0%, transparent 5%);
     animation: bgShift 15s ease-in-out infinite;
     z-index: -1;
 }
@@ -195,20 +195,12 @@ body.light-theme .moon-icon {
 }
 
 .logo-area {
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
 }
 
 .logo {
-    width: 120px;
-    height: 120px;
-    color: var(--accent-primary);
-    filter: drop-shadow(0 0 20px rgba(0, 168, 255, 0.3));
-    animation: floatLogo 3s ease-in-out infinite;
-}
-
-@keyframes floatLogo {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    width: 240px;
+    height: 240px;
 }
 
 .portal-title {
@@ -281,7 +273,7 @@ body.light-theme .moon-icon {
     align-items: center;
     justify-content: center;
     padding: 3rem 2rem;
-    background: linear-gradient(135deg, rgba(0, 168, 255, 0.05) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(0, 168, 255, 0.05) 0%, transparent 5%);
 }
 
 .form-card {
@@ -290,7 +282,7 @@ body.light-theme .moon-icon {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 2.5rem;
+    padding: 0.70rem;
     box-shadow: var(--shadow-md);
     animation: slideUp 0.5s var(--transition-easing);
 }

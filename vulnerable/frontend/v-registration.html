@@ -7,60 +7,49 @@
     <link rel="stylesheet" href="v-registration.css">
 </head>
 <body>
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark and light theme">
-        <svg class="theme-icon" viewBox="0 0 24 24" width="20" height="20">
-            <!-- Sun icon (light theme) -->
-            <circle class="sun-icon" cx="12" cy="12" r="5"></circle>
-            <line class="sun-icon" x1="12" y1="1" x2="12" y2="3"></line>
-            <line class="sun-icon" x1="12" y1="21" x2="12" y2="23"></line>
-            <line class="sun-icon" x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line class="sun-icon" x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line class="sun-icon" x1="1" y1="12" x2="3" y2="12"></line>
-            <line class="sun-icon" x1="21" y1="12" x2="23" y2="12"></line>
-            <line class="sun-icon" x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line class="sun-icon" x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-
-            <!-- Moon icon (dark theme) -->
-            <path class="moon-icon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-    </button>
-
     <div class="container">
         <!-- Left Section: Branding -->
         <section class="branding-section">
-            <div class="branding-content">
-                <div class="logo-area">
-                    <svg class="logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Simplified institution logo -->
-                        <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-size="60" font-weight="bold" fill="currentColor">HU</text>
-                        <path d="M 50 120 L 50 150 M 150 120 L 150 150 M 50 135 L 150 135" stroke="currentColor" stroke-width="3" fill="none"/>
-                    </svg>
-                </div>
+        <div class="branding-content">
 
-                <h1 class="portal-title">Registration Portal</h1>
-                <p class="portal-subtitle">SECURE ACADEMIC MANAGEMENT SYSTEM</p>
-
-                <p class="portal-description">
-                    Join the Faculty Secure Portal to manage students, attendance, and academic records securely.
-                </p>
-
-                <ul class="features-list">
-                    <li>
-                        <span class="feature-icon">✓</span>
-                        <span class="feature-text">Student Management</span>
-                    </li>
-                    <li>
-                        <span class="feature-icon">✓</span>
-                        <span class="feature-text">Attendance Tracking</span>
-                    </li>
-                    <li>
-                        <span class="feature-icon">✓</span>
-                        <span class="feature-text">Academic Records</span>
-                    </li>
-                </ul>
+            <div class="logo-area">
+                <img
+                    class="logo"
+                    src="../images/logo.png"
+                    alt="University Logo"
+                >
             </div>
-        </section>
+
+            <h1 class="portal-title">Registration Portal</h1>
+
+            <p class="portal-subtitle">
+                SECURE ACADEMIC MANAGEMENT SYSTEM
+            </p>
+
+            <p class="portal-description">
+                Join the Faculty Secure Portal to manage students,
+                attendance, and academic records securely.
+            </p>
+
+            <ul class="features-list">
+                <li>
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text">Student Management</span>
+                </li>
+
+                <li>
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text">Attendance Tracking</span>
+                </li>
+
+                <li>
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text">Academic Records</span>
+                </li>
+            </ul>
+
+        </div>
+    </section>
 
         <!-- Right Section: Registration Form -->
         <section class="form-section">
@@ -83,12 +72,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="full-name">Full Name</label>
+                        <label for="full-name"></label>
                         <input 
                             type="text" 
                             id="full-name" 
                             name="full-name" 
-                            placeholder="Dr. John Doe" 
+                            placeholder="Full Name" 
                             required
                             minlength="3"
                             title="Full name should be at least 3 characters">
@@ -101,7 +90,7 @@
                             type="email" 
                             id="email" 
                             name="email" 
-                            placeholder="faculty@institution.edu" 
+                            placeholder="faculty@hu.edu" 
                             required
                             title="Please enter a valid email address">
                         <span class="error-message"></span>
@@ -179,7 +168,7 @@
                 <!-- Login Link -->
                 <p class="login-link">
                     Already have an account? 
-                    <a href="index.html">Login</a>
+                    <a href="../frontend/v-index.html">Login</a>
                 </p>
             </div>
         </section>
