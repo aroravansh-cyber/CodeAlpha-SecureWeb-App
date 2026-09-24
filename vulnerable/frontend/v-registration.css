@@ -70,44 +70,24 @@ html {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: var(--bg-primary);
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url("../images/campus-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
     color: var(--text-primary);
     line-height: 1.6;
+
     transition: background-color var(--transition-speed) var(--transition-easing),
                 color var(--transition-speed) var(--transition-easing);
 }
 
-/* ========================================
-   THEME TOGGLE BUTTON
-   ======================================== */
 
-.theme-toggle {
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--accent-primary);
-    transition: all var(--transition-speed) var(--transition-easing);
-    z-index: 1000;
-    padding: 0;
-}
-
-.theme-toggle:hover {
-    background-color: var(--bg-tertiary);
-    transform: scale(1.05);
-}
-
-.theme-toggle:active {
-    transform: scale(0.95);
-}
 
 .theme-icon {
     width: 1.25rem;
@@ -167,19 +147,6 @@ body.light-theme .moon-icon {
     padding: 3rem 2rem;
     position: relative;
     overflow: hidden;
-}
-
-.branding-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 20% 80%, rgba(0, 168, 255, 0.08) 0%, transparent 5%),
-                radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.08) 0%, transparent 5%);
-    animation: bgShift 15s ease-in-out infinite;
-    z-index: -1;
 }
 
 @keyframes bgShift {
@@ -265,24 +232,26 @@ body.light-theme .moon-icon {
 }
 
 /* ========================================
-   FORM SECTION
-   ======================================== */
+FORM SECTION
+======================================== */
 
 .form-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 2rem;
-    background: linear-gradient(135deg, rgba(0, 168, 255, 0.05) 0%, transparent 5%);
+    padding: 1rem;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .form-card {
     width: 100%;
-    max-width: 400px;
-    background-color: var(--bg-secondary);
+    max-width: 760px;
+    background-color: rgba(21, 24, 28, 0.75);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 0.70rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
     box-shadow: var(--shadow-md);
     animation: slideUp 0.5s var(--transition-easing);
 }
@@ -292,6 +261,7 @@ body.light-theme .moon-icon {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -299,38 +269,39 @@ body.light-theme .moon-icon {
 }
 
 .form-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.50rem;
     letter-spacing: -0.5px;
 }
 
 .form-subtitle {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     line-height: 1.5;
 }
 
+
 /* ========================================
-   FORM ELEMENTS
-   ======================================== */
+FORM ELEMENTS
+======================================== */
 
 .registration-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem 1rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
 }
 
 .form-group label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
@@ -339,13 +310,19 @@ body.light-theme .moon-icon {
 
 .form-group input,
 .form-group select {
-    padding: 0.75rem 1rem;
+    width: 100%;
+    height: 42px;
+    padding: 0 0.85rem;
+    box-sizing: border-box;
+
     border-radius: 6px;
     border: 1px solid var(--input-border);
     background-color: var(--input-bg);
     color: var(--input-text);
+
     font-size: 1rem;
     font-family: inherit;
+
     transition: all var(--transition-speed) var(--transition-easing);
     outline: none;
 }
@@ -375,6 +352,42 @@ body.light-theme .form-group select:focus {
 .form-group input:valid:not(:placeholder-shown):not(.no-validation) {
     border-color: var(--accent-success);
 }
+
+
+/* ========================================
+REGISTER BUTTON
+======================================== */
+
+.register-button {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+
+/* ========================================
+MOBILE RESPONSIVE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .form-section {
+        padding: 1rem;
+    }
+
+    .form-card {
+        max-width: 100%;
+        padding: 1.25rem;
+    }
+
+    .registration-form {
+        grid-template-columns: 1fr;
+    }
+
+    .register-button {
+        grid-column: auto;
+    }
+}
+
 
 /* Password Input Wrapper */
 .password-input-wrapper {
@@ -541,7 +554,7 @@ body.light-theme .register-button:hover {
     right: 0;
     text-align: center;
     padding: 1rem;
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: var(--text-tertiary);
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(4px);

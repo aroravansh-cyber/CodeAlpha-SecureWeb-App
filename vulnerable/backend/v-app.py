@@ -47,6 +47,38 @@ def login():
         "message": "Invalid Faculty ID or password."
     }), 401
 
+#Registration Form
+
+@app.route("/api/register", methods=["POST"])
+def register():
+
+    data = request.get_json()
+
+    faculty_id = data.get("faculty_id")
+    full_name = data.get("full_name")
+    email = data.get("email")
+    department = data.get("department")
+    password = data.get("password")
+
+    if not faculty_id or not full_name or not email or not department or not password:
+        return jsonify({
+            "success": False,
+            "message": "All fields are required."
+        }), 400
+
+    print("New Faculty Registration:")
+    print("Faculty ID:", faculty_id)
+    print("Full Name:", full_name)
+    print("Email:", email)
+    print("Department:", department)
+    print("Password:", password)
+
+    return jsonify({
+        "success": True,
+        "message": "Registration received successfully.",
+        "faculty_id": faculty_id
+    }), 201
+
 
 if __name__ == "__main__":
     app.run(

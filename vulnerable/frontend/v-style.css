@@ -185,7 +185,7 @@ body::before {
 
 .login-card {
     width: 100%;
-    max-width: 440px;
+    max-width: 540px;
     height: auto;
     min-height: 0;
     box-sizing: border-box;
@@ -330,12 +330,21 @@ input::placeholder {
    Form Footer (Remember Me & Forgot Password)
    ======================================== */
 
-.form-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-    font-size: 13px;
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    color: var(--text-tertiary);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.footer p {
+    margin: 0.25rem 0;
 }
 
 .checkbox-label {
