@@ -1,0 +1,751 @@
+/* ========================================
+   ROOT & THEME VARIABLES
+   ======================================== */
+
+:root {
+    /* Dark Theme (Default) */
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f2e;
+    --bg-tertiary: #252c3c;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b0b8c1;
+    --text-tertiary: #7a8291;
+    
+    --accent-primary: #00a8ff;
+    --accent-button: #0066ff;
+    --accent-success: #10b981;
+    
+    --border-color: #2d3547;
+    --input-bg: #f5f5f5;
+    --input-text: #1a1a1a;
+    --input-border: #d0d0d0;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    
+    --transition-speed: 0.3s;
+    --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme */
+body.light-theme {
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f0f2f5;
+    
+    --text-primary: #0a0e27;
+    --text-secondary: #4a5568;
+    --text-tertiary: #718096;
+    
+    --accent-primary: #0066ff;
+    --accent-button: #0052cc;
+    --accent-success: #059669;
+    
+    --border-color: #e0e7ff;
+    --input-bg: #ffffff;
+    --input-text: #0a0e27;
+    --input-border: #cbd5e1;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   RESET & BASE STYLES
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color var(--transition-speed) var(--transition-easing),
+                color var(--transition-speed) var(--transition-easing);
+}
+
+/* ========================================
+   THEME TOGGLE BUTTON
+   ======================================== */
+
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-primary);
+    transition: all var(--transition-speed) var(--transition-easing);
+    z-index: 1000;
+    padding: 0;
+}
+
+.theme-toggle:hover {
+    background-color: var(--bg-tertiary);
+    transform: scale(1.05);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.sun-icon,
+.moon-icon {
+    transition: opacity var(--transition-speed) var(--transition-easing),
+                transform var(--transition-speed) var(--transition-easing);
+}
+
+.sun-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.moon-icon {
+    opacity: 0;
+    transform: scale(0.8) rotate(-180deg);
+}
+
+body.light-theme .sun-icon {
+    opacity: 0;
+    transform: scale(0.8) rotate(180deg);
+}
+
+body.light-theme .moon-icon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* ========================================
+   CONTAINER & LAYOUT
+   ======================================== */
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    gap: 2rem;
+}
+
+/* ========================================
+   BRANDING SECTION
+   ======================================== */
+
+.branding-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.branding-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 20% 80%, rgba(0, 168, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.08) 0%, transparent 50%);
+    animation: bgShift 15s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes bgShift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(2%, 2%); }
+}
+
+.branding-content {
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-area {
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    color: var(--accent-primary);
+    filter: drop-shadow(0 0 20px rgba(0, 168, 255, 0.3));
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.portal-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--accent-primary);
+    letter-spacing: -0.5px;
+}
+
+.portal-subtitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--accent-primary);
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+}
+
+.portal-description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+}
+
+/* Features List */
+.features-list {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.features-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--accent-primary);
+    border-radius: 50%;
+    color: var(--accent-primary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.feature-text {
+    font-weight: 500;
+}
+
+/* ========================================
+   FORM SECTION
+   ======================================== */
+
+.form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 168, 255, 0.05) 0%, transparent 100%);
+}
+
+.form-card {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    animation: slideUp 0.5s var(--transition-easing);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.form-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all var(--transition-speed) var(--transition-easing);
+    outline: none;
+}
+
+.form-group input::placeholder,
+.form-group select {
+    color: var(--text-tertiary);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+    background-color: var(--input-bg);
+}
+
+body.light-theme .form-group input:focus,
+body.light-theme .form-group select:focus {
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+.form-group input:invalid:not(:placeholder-shown),
+.form-group select:invalid {
+    border-color: #ef4444;
+}
+
+.form-group input:valid:not(:placeholder-shown):not(.no-validation) {
+    border-color: var(--accent-success);
+}
+
+/* Password Input Wrapper */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 2.5rem;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    color: var(--text-tertiary);
+    transition: color var(--transition-speed) var(--transition-easing);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: var(--accent-primary);
+}
+
+.eye-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Error Message */
+.error-message {
+    font-size: 0.75rem;
+    color: #ef4444;
+    min-height: 1rem;
+    display: block;
+    transition: opacity var(--transition-speed) var(--transition-easing);
+    opacity: 0;
+}
+
+.form-group input.error:not(:placeholder-shown) ~ .error-message,
+.form-group select.error ~ .error-message {
+    opacity: 1;
+}
+
+/* ========================================
+   BUTTONS & ACTIONS
+   ======================================== */
+
+.register-button {
+    padding: 0.875rem 1.5rem;
+    margin-top: 1rem;
+    background-color: var(--accent-button);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-easing);
+    text-transform: uppercase;
+    outline: none;
+}
+
+.register-button:hover {
+    background-color: #0052cc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3);
+}
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+body.light-theme .register-button {
+    background-color: var(--accent-button);
+}
+
+body.light-theme .register-button:hover {
+    background-color: #0045a8;
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.2);
+}
+
+.register-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ========================================
+   SECURITY NOTICE
+   ======================================== */
+
+.security-notice {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background-color: var(--bg-tertiary);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent-success);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.security-icon {
+    color: var(--accent-success);
+    flex-shrink: 0;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ========================================
+   LOGIN LINK
+   ======================================== */
+
+.login-link {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 1.5rem;
+}
+
+.login-link a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-speed) var(--transition-easing);
+    border-bottom: 2px solid transparent;
+}
+
+.login-link a:hover {
+    border-bottom-color: var(--accent-primary);
+}
+
+.login-link a:active {
+    opacity: 0.8;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.footer p {
+    margin: 0.25rem 0;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .branding-section {
+        padding: 2rem 1rem;
+    }
+
+    .form-section {
+        padding: 2rem 1rem;
+        padding-bottom: 8rem;
+    }
+
+    .logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .portal-title {
+        font-size: 2rem;
+    }
+
+    .form-card {
+        max-width: 100%;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 2.75rem;
+        height: 2.75rem;
+    }
+
+    .branding-section {
+        padding: 2rem 1rem;
+        min-height: auto;
+    }
+
+    .branding-content {
+        max-width: 100%;
+    }
+
+    .portal-title {
+        font-size: 1.75rem;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .form-card {
+        padding: 1.5rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .register-button {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .footer {
+        font-size: 0.75rem;
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .branding-section,
+    .form-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .branding-section {
+        min-height: auto;
+    }
+
+    .form-section {
+        padding-bottom: 7rem;
+    }
+
+    .theme-toggle {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .theme-icon {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .portal-title {
+        font-size: 1.5rem;
+    }
+
+    .portal-subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+
+    .portal-description {
+        font-size: 0.9rem;
+    }
+
+    .features-list {
+        gap: 1rem;
+    }
+
+    .form-card {
+        border-radius: 8px;
+        max-width: 100%;
+    }
+
+    .form-title {
+        font-size: 1.35rem;
+    }
+
+    .form-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .registration-form {
+        gap: 1rem;
+    }
+
+    .form-group label {
+        font-size: 0.8rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 0.65rem 0.75rem;
+        font-size: 1rem;
+    }
+
+    .register-button {
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Skip to main content link (for screen readers) */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}

@@ -183,8 +183,10 @@ loginForm.addEventListener('submit', function(event) {
         hideLoadingState();
 
         if (data.success) {
-            alert("Login successful!");
-        } else {
+            console.log("LOGIN SUCCESS");
+            window.location.replace("./dashboard.html");
+        } 
+        else {
             alert(data.message);
         }
     })
