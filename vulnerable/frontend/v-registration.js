@@ -371,16 +371,11 @@ class FormValidator {
                 this.showSuccessMessage();
 
                 setTimeout(() => {
-
-                    window.location.href =
-                        '../frontend/v-index.html';
-
+                    window.location.href = 'v-index.html';
                 }, 1500);
 
-
             } else {
-
-                alert(data.message);
+                    alert(data.message);
 
             }
 
