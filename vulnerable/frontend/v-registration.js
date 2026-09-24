@@ -1,19 +1,24 @@
-// ========================================
 // PASSWORD VISIBILITY TOGGLE
-// ========================================
 
 class PasswordToggle {
 
     constructor() {
-        this.toggleButtons = document.querySelectorAll('.password-toggle');
+
+        this.toggleButtons =
+            document.querySelectorAll('.password-toggle');
+
         this.init();
     }
 
     init() {
+
         this.toggleButtons.forEach(btn => {
-            btn.addEventListener('click', (e) =>
-                this.togglePasswordVisibility(e)
+
+            btn.addEventListener(
+                'click',
+                (e) => this.togglePasswordVisibility(e)
             );
+
         });
     }
 
@@ -41,53 +46,65 @@ class PasswordToggle {
 }
 
 
-// ========================================
 // FORM VALIDATION
-// ========================================
 
 class FormValidator {
 
     constructor(formSelector) {
 
-        this.form = document.querySelector(formSelector);
+        this.form =
+            document.querySelector(formSelector);
 
         this.fields = {
 
             facultyId: {
-                element: document.getElementById('faculty-id'),
+                element:
+                    document.getElementById('faculty-id'),
+
                 validate: (value) =>
                     this.validateFacultyId(value)
             },
 
             fullName: {
-                element: document.getElementById('full-name'),
+                element:
+                    document.getElementById('full-name'),
+
                 validate: (value) =>
                     this.validateFullName(value)
             },
 
             email: {
-                element: document.getElementById('email'),
+                element:
+                    document.getElementById('email'),
+
                 validate: (value) =>
                     this.validateEmail(value)
             },
 
             department: {
-                element: document.getElementById('department'),
+                element:
+                    document.getElementById('department'),
+
                 validate: (value) =>
                     this.validateDepartment(value)
             },
 
             password: {
-                element: document.getElementById('password'),
+                element:
+                    document.getElementById('password'),
+
                 validate: (value) =>
                     this.validatePassword(value)
             },
 
             confirmPassword: {
-                element: document.getElementById('confirm-password'),
+                element:
+                    document.getElementById('confirm-password'),
+
                 validate: (value) =>
                     this.validateConfirmPassword(value)
             }
+
         };
 
         this.init();
@@ -98,47 +115,79 @@ class FormValidator {
 
         if (!this.form) return;
 
-        // Real-time validation
         Object.values(this.fields).forEach(field => {
 
-            if (field.element) {
+            if (!field.element) return;
 
-                field.element.addEventListener(
-                    'blur',
-                    () => this.validateField(field.element)
-                );
+            field.element.addEventListener(
+                'blur',
+                () => this.validateField(field.element)
+            );
 
-                field.element.addEventListener(
-                    'input',
-                    () => this.clearError(field.element)
-                );
-            }
+            field.element.addEventListener(
+                'input',
+                () => this.clearError(field.element)
+            );
+
         });
 
-        // Form submission
         this.form.addEventListener(
             'submit',
-            (e) => this.handleSubmit(e)
+            (event) => this.handleSubmit(event)
         );
     }
 
 
-    // ========================================
-    // FIELD VALIDATION
-    // ========================================
+    validateAllFields() {
+
+        let isValid = true;
+
+        Object.entries(this.fields).forEach(
+            ([key, field]) => {
+
+                if (!field.element) return;
+
+                const result =
+                    this.validateField(field.element);
+
+                console.log(
+                    key,
+                    '=>',
+                    result,
+                    'value:',
+                    field.element.value
+                );
+
+                if (!result) {
+                    isValid = false;
+                }
+            }
+        );
+
+        return isValid;
+    }
+
 
     validateField(element) {
 
-        const fieldKey = Object.keys(this.fields).find(
-            key => this.fields[key].element === element
-        );
+        const fieldKey =
+            Object.keys(this.fields).find(
+                key =>
+                    this.fields[key].element === element
+            );
 
-        if (!fieldKey) return true;
+        if (!fieldKey) {
+            return true;
+        }
 
-        const field = this.fields[fieldKey];
+        const field =
+            this.fields[fieldKey];
+
+        const value =
+            element.value.trim();
 
         const isValid =
-            field.validate(element.value.trim());
+            field.validate(value);
 
         if (!isValid) {
 
@@ -148,29 +197,35 @@ class FormValidator {
             );
 
             return false;
-
-        } else {
-
-            this.clearError(element);
-
-            return true;
         }
+
+        this.clearError(element);
+
+        return true;
     }
 
 
     validateFacultyId(value) {
 
-        if (!value) return false;
+        if (!value) {
+            return false;
+        }
 
-        const pattern = /^[A-Za-z0-9\-]+$/;
+        const pattern =
+            /^[A-Za-z0-9\-]+$/;
 
-        return pattern.test(value) && value.length >= 3;
+        return (
+            pattern.test(value) &&
+            value.length >= 3
+        );
     }
 
 
     validateFullName(value) {
 
-        if (!value) return false;
+        if (!value) {
+            return false;
+        }
 
         return (
             value.length >= 3 &&
@@ -181,7 +236,9 @@ class FormValidator {
 
     validateEmail(value) {
 
-        if (!value) return false;
+        if (!value) {
+            return false;
+        }
 
         const pattern =
             /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -192,13 +249,18 @@ class FormValidator {
 
     validateDepartment(value) {
 
-        return value && value !== '';
+        return (
+            value &&
+            value !== ''
+        );
     }
 
 
     validatePassword(value) {
 
-        if (!value) return false;
+        if (!value) {
+            return false;
+        }
 
         return value.length >= 8;
     }
@@ -209,7 +271,9 @@ class FormValidator {
         const passwordField =
             this.fields.password.element;
 
-        if (!value) return false;
+        if (!value) {
+            return false;
+        }
 
         return (
             value === passwordField.value &&
@@ -217,10 +281,6 @@ class FormValidator {
         );
     }
 
-
-    // ========================================
-    // ERROR MESSAGES
-    // ========================================
 
     getErrorMessage(fieldKey) {
 
@@ -243,9 +303,13 @@ class FormValidator {
 
             confirmPassword:
                 'Passwords do not match or are too short'
+
         };
 
-        return messages[fieldKey] || 'Invalid input';
+        return (
+            messages[fieldKey] ||
+            'Invalid input'
+        );
     }
 
 
@@ -259,7 +323,9 @@ class FormValidator {
             );
 
         if (errorElement) {
-            errorElement.textContent = message;
+
+            errorElement.textContent =
+                message;
         }
     }
 
@@ -274,43 +340,48 @@ class FormValidator {
             );
 
         if (errorElement) {
+
             errorElement.textContent = '';
         }
     }
 
 
-    validateAllFields() {
-
-        let isValid = true;
+    clearAllErrors() {
 
         Object.values(this.fields).forEach(field => {
 
-            if (
-                field.element &&
-                !this.validateField(field.element)
-            ) {
-                isValid = false;
+            if (field.element) {
+
+                this.clearError(
+                    field.element
+                );
             }
         });
-
-        return isValid;
     }
 
 
-    // ========================================
-    // FORM SUBMISSION
-    // ========================================
-
     handleSubmit(event) {
+
+        console.log('handleSubmit called');
 
         event.preventDefault();
 
-        // Validate all fields
-        if (!this.validateAllFields()) {
+        const isValid =
+            this.validateAllFields();
+
+        if (!isValid) {
+
+            console.log(
+                'Validation failed'
+            );
+
             return;
         }
 
-        // Prepare form data
+        console.log(
+            'Validation passed'
+        );
+
         const formData = {
 
             faculty_id:
@@ -327,6 +398,7 @@ class FormValidator {
 
             password:
                 this.fields.password.element.value
+
         };
 
         console.log(
@@ -334,25 +406,30 @@ class FormValidator {
             formData
         );
 
-
-        // ========================================
-        // SEND DATA TO FLASK BACKEND
-        // ========================================
-
         fetch(
             'http://127.0.0.1:5000/api/register',
             {
                 method: 'POST',
 
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type':
+                        'application/json'
                 },
 
-                body: JSON.stringify(formData)
+                body:
+                    JSON.stringify(formData)
             }
         )
 
-        .then(response => response.json())
+        .then(response => {
+
+            console.log(
+                'Response status:',
+                response.status
+            );
+
+            return response.json();
+        })
 
         .then(data => {
 
@@ -361,24 +438,22 @@ class FormValidator {
                 data
             );
 
-
-            // ========================================
-            // REGISTRATION SUCCESS
-            // ========================================
-
             if (data.success) {
+
+                console.log('Registration successful');
 
                 this.showSuccessMessage();
 
-                setTimeout(() => {
-                    window.location.href = 'v-index.html';
-                }, 1500);
-
+                window.location.replace('./v-index.html');
             } else {
-                    alert(data.message);
 
+                console.log(
+                    'Registration failed:',
+                    data.message
+                );
+
+                alert(data.message);
             }
-
         })
 
         .catch(error => {
@@ -395,28 +470,6 @@ class FormValidator {
     }
 
 
-    // ========================================
-    // CLEAR ALL ERRORS
-    // ========================================
-
-    clearAllErrors() {
-
-        Object.values(this.fields).forEach(field => {
-
-            if (field.element) {
-
-                this.clearError(
-                    field.element
-                );
-            }
-        });
-    }
-
-
-    // ========================================
-    // SUCCESS MESSAGE
-    // ========================================
-
     showSuccessMessage() {
 
         const successMsg =
@@ -428,39 +481,25 @@ class FormValidator {
         successMsg.textContent =
             'Registration submitted successfully!';
 
-
         successMsg.style.cssText = `
-
             position: fixed;
-
             top: 2rem;
-
             left: 50%;
-
             transform: translateX(-50%);
-
             background-color: var(--accent-success);
-
             color: white;
-
             padding: 1rem 2rem;
-
             border-radius: 6px;
-
             box-shadow: var(--shadow-md);
-
             z-index: 999;
-
             animation:
                 slideDown 0.3s ease-out,
                 slideUp 0.3s ease-in 1.5s forwards;
         `;
 
-
         document.body.appendChild(
             successMsg
         );
-
 
         setTimeout(() => {
 
@@ -471,26 +510,17 @@ class FormValidator {
 }
 
 
-// ========================================
 // INITIALIZATION
-// ========================================
 
 document.addEventListener(
     'DOMContentLoaded',
     () => {
 
-        // Initialize password toggle
         new PasswordToggle();
 
-        // Initialize form validator
         new FormValidator(
             '#registration-form'
         );
-
-
-        // ========================================
-        // SUCCESS MESSAGE ANIMATION
-        // ========================================
 
         const style =
             document.createElement('style');
@@ -501,7 +531,6 @@ document.addEventListener(
 
                 from {
                     opacity: 0;
-
                     transform:
                         translateX(-50%)
                         translateY(-20px);
@@ -509,25 +538,21 @@ document.addEventListener(
 
                 to {
                     opacity: 1;
-
                     transform:
                         translateX(-50%)
                         translateY(0);
                 }
             }
 
-
             @keyframes slideUp {
 
                 to {
                     opacity: 0;
-
                     transform:
                         translateX(-50%)
                         translateY(-20px);
                 }
             }
-
 
             @media (prefers-reduced-motion: reduce) {
 

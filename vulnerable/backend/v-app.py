@@ -60,11 +60,13 @@ def login():
     connection = get_db_connection()
 
     faculty = connection.execute(
-    """
-    SELECT * FROM faculty
-    WHERE (faculty_id = ? OR email = ?) AND password = ?
-    """,
-    (faculty_id, faculty_id, password)).fetchone()
+        """
+        SELECT * FROM faculty
+        WHERE (faculty_id = ? OR email = ?)
+        AND password = ?
+        """,
+        (faculty_id, faculty_id, password)
+    ).fetchone()
 
     connection.close()
 
@@ -101,17 +103,20 @@ def register():
     try:
         connection = get_db_connection()
 
-        connection.execute("""
+        connection.execute(
+            """
             INSERT INTO faculty
             (faculty_id, full_name, email, department, password)
             VALUES (?, ?, ?, ?, ?)
-        """, (
-            faculty_id,
-            full_name,
-            email,
-            department,
-            password
-        ))
+            """,
+            (
+                faculty_id,
+                full_name,
+                email,
+                department,
+                password
+            )
+        )
 
         connection.commit()
         connection.close()
