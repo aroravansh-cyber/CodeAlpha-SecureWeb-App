@@ -330,22 +330,7 @@ input::placeholder {
    Form Footer (Remember Me & Forgot Password)
    ======================================== */
 
-.footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 1rem;
-    font-size: 1rem;
-    color: var(--text-tertiary);
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(4px);
-}
 
-.footer p {
-    margin: 0.25rem 0;
-}
 
 .checkbox-label {
     display: flex;
@@ -527,6 +512,7 @@ input[type="checkbox"] {
     border-top: 1px solid var(--color-border);
     z-index: 100;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .footer p {

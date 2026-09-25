@@ -20,7 +20,6 @@ def get_db_connection():
 # Create database table
 def init_db():
     connection = get_db_connection()
-
     connection.execute("""
         CREATE TABLE IF NOT EXISTS faculty (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,10 +27,10 @@ def init_db():
             full_name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
             department TEXT NOT NULL,
+            designation TEXT NOT NULL,
             password TEXT NOT NULL
         )
     """)
-
     connection.commit()
     connection.close()
 
@@ -47,7 +46,6 @@ def home():
 @app.route("/api/login", methods=["POST"])
 def login():
     data = request.get_json()
-
     faculty_id = data.get("faculty_id")
     password = data.get("password")
 
@@ -75,7 +73,9 @@ def login():
             "success": True,
             "message": "Login successful.",
             "faculty_id": faculty["faculty_id"],
-            "full_name": faculty["full_name"]
+            "full_name": faculty["full_name"],
+            "department": faculty["department"],
+            "designation": faculty["designation"]
         }), 200
 
     return jsonify({
@@ -83,7 +83,7 @@ def login():
         "message": "Invalid Faculty ID or password."
     }), 401
 
-# Registration route
+# Registration route 
 @app.route("/api/register", methods=["POST"])
 def register():
     data = request.get_json()
@@ -92,9 +92,17 @@ def register():
     full_name = data.get("full_name")
     email = data.get("email")
     department = data.get("department")
+    designation = data.get("designation")
     password = data.get("password")
 
-    if not faculty_id or not full_name or not email or not department or not password:
+    if (
+        not faculty_id
+        or not full_name
+        or not email
+        or not department
+        or not designation
+        or not password
+    ):
         return jsonify({
             "success": False,
             "message": "All fields are required."
@@ -105,28 +113,29 @@ def register():
 
         connection.execute(
             """
-            INSERT INTO faculty
-            (faculty_id, full_name, email, department, password)
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (
+            INSERT INTO faculty (
                 faculty_id,
                 full_name,
                 email,
                 department,
+                designation,
                 password
             )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (faculty_id, full_name, email, department, designation, password)
         )
 
         connection.commit()
         connection.close()
 
         print("New Faculty Registration:")
-        print("Faculty ID:", faculty_id)
-        print("Full Name:", full_name)
-        print("Email:", email)
-        print("Department:", department)
-        print("Password:", password)
+        print("Faculty ID:", faculty_id)    #faculty id
+        print("Full Name:", full_name)  #full name
+        print("Email:", email)  #email
+        print("Department:", department)    #departemtn
+        print("Designation:", designation)  #designatiom
+        print("Password:", password)    #password
 
         return jsonify({
             "success": True,
@@ -140,10 +149,9 @@ def register():
             "message": "Faculty ID or email already exists."
         }), 409
 
-# Start server
+# Start server only for pc port 5000
 if __name__ == "__main__":
     init_db()
-
     app.run(
         host="127.0.0.1",
         port=5000,
