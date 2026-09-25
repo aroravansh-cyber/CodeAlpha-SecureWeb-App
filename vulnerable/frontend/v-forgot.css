@@ -1,0 +1,442 @@
+/* ========================================
+   Faculty Secure Portal
+   Forgot Password Page
+======================================== */
+
+
+/* ================= ROOT ================= */
+
+:root {
+    --color-bg-dark: #050B14;
+    --color-bg-darker: #08111F;
+    --color-bg-card: rgba(15, 23, 42, 0.8);
+
+    --color-primary: #1687FF;
+    --color-primary-hover: #0875E1;
+
+    --color-text: #FFFFFF;
+    --color-text-muted: #94A3B8;
+
+    --color-border: rgba(255, 255, 255, 0.12);
+
+    --color-success: #22C55E;
+    --color-danger: #EF4444;
+}
+
+
+/* ================= RESET ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: var(--color-text);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 11, 20, 0.96),
+            rgba(8, 17, 31, 0.96)
+        );
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ================= MAIN CONTAINER ================= */
+
+.auth-container {
+    flex: 1;
+
+    width: 100%;
+    min-height: calc(100vh - 65px);
+
+    display: flex;
+}
+
+
+/* ================= BRANDING ================= */
+
+.branding-section {
+    width: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px;
+
+    background:
+        linear-gradient(
+            rgba(5, 11, 20, 0.82),
+            rgba(8, 17, 31, 0.92)
+        ),
+        url("../images/campus.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+.branding-content {
+    width: 100%;
+    max-width: 500px;
+}
+
+
+.logo {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 25px;
+
+    border-radius: 16px;
+
+    background: var(--color-primary);
+
+    box-shadow:
+        0 10px 30px rgba(22, 135, 255, 0.25);
+}
+
+
+.logo span {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+
+.branding-content h1 {
+    font-size: 42px;
+    line-height: 1.15;
+
+    margin-bottom: 15px;
+}
+
+
+.branding-content > p {
+    color: var(--color-text-muted);
+
+    font-size: 16px;
+    line-height: 1.7;
+
+    max-width: 430px;
+}
+
+
+/* ================= SECURITY INFO ================= */
+
+.security-info {
+    margin-top: 35px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 18px;
+
+    max-width: 400px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    backdrop-filter: blur(10px);
+}
+
+
+.security-icon {
+    font-size: 25px;
+}
+
+
+.security-info strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 14px;
+}
+
+
+.security-info small {
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+}
+
+
+/* ================= FORM SECTION ================= */
+
+.form-section {
+    width: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: var(--color-bg-dark);
+}
+
+
+.form-container {
+    width: 100%;
+    max-width: 430px;
+}
+
+
+/* ================= HEADER ================= */
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+
+.form-header h2 {
+    font-size: 32px;
+
+    margin-bottom: 10px;
+}
+
+
+.form-header p {
+    color: var(--color-text-muted);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ================= INPUT ================= */
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.input-group input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+
+    outline: none;
+
+    color: var(--color-text);
+
+    background: rgba(255, 255, 255, 0.04);
+
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+
+.input-group input::placeholder {
+    color: #64748B;
+}
+
+
+.input-group input:focus {
+    border-color: var(--color-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(22, 135, 255, 0.12);
+}
+
+
+/* ================= BUTTON ================= */
+
+.submit-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    color: white;
+
+    background: var(--color-primary);
+
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+
+.submit-btn:hover {
+    background: var(--color-primary-hover);
+
+    transform: translateY(-1px);
+}
+
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+
+/* ================= MESSAGE ================= */
+
+.message {
+    margin-top: 18px;
+
+    padding: 12px;
+
+    display: none;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+}
+
+
+.message.success {
+    display: block;
+
+    color: #86EFAC;
+
+    background: rgba(34, 197, 94, 0.1);
+
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+
+.message.error {
+    display: block;
+
+    color: #FCA5A5;
+
+    background: rgba(239, 68, 68, 0.1);
+
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+
+/* ================= BACK LOGIN ================= */
+
+.back-login {
+    margin-top: 25px;
+
+    text-align: center;
+}
+
+
+.back-login a {
+    color: var(--color-primary);
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+
+.back-login a:hover {
+    text-decoration: underline;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    width: 100%;
+
+    padding: 20px;
+
+    text-align: center;
+
+    border-top: 1px solid var(--color-border);
+
+    background: var(--color-bg-darker);
+}
+
+
+footer p {
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .auth-container {
+        flex-direction: column;
+    }
+
+    .branding-section,
+    .form-section {
+        width: 100%;
+    }
+
+    .branding-section {
+        min-height: 400px;
+
+        padding: 40px 25px;
+    }
+
+    .form-section {
+        padding: 50px 25px;
+    }
+
+    .branding-content h1 {
+        font-size: 34px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .branding-section {
+        min-height: 350px;
+    }
+
+    .branding-content h1 {
+        font-size: 29px;
+    }
+
+    .form-header h2 {
+        font-size: 27px;
+    }
+
+    .form-section {
+        padding: 35px 20px;
+    }
+}
+

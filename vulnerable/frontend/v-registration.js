@@ -58,6 +58,7 @@ class FormValidator {
         this.fields = {
 
             facultyId: {
+
                 element:
                     document.getElementById('faculty-id'),
 
@@ -66,6 +67,7 @@ class FormValidator {
             },
 
             fullName: {
+
                 element:
                     document.getElementById('full-name'),
 
@@ -74,6 +76,7 @@ class FormValidator {
             },
 
             email: {
+
                 element:
                     document.getElementById('email'),
 
@@ -82,6 +85,7 @@ class FormValidator {
             },
 
             department: {
+
                 element:
                     document.getElementById('department'),
 
@@ -89,7 +93,17 @@ class FormValidator {
                     this.validateDepartment(value)
             },
 
+            designation: {
+
+                element:
+                    document.getElementById('designation'),
+
+                validate: (value) =>
+                    this.validateDesignation(value)
+            },
+
             password: {
+
                 element:
                     document.getElementById('password'),
 
@@ -98,13 +112,13 @@ class FormValidator {
             },
 
             confirmPassword: {
+
                 element:
                     document.getElementById('confirm-password'),
 
                 validate: (value) =>
                     this.validateConfirmPassword(value)
             }
-
         };
 
         this.init();
@@ -159,6 +173,7 @@ class FormValidator {
                 );
 
                 if (!result) {
+
                     isValid = false;
                 }
             }
@@ -177,6 +192,7 @@ class FormValidator {
             );
 
         if (!fieldKey) {
+
             return true;
         }
 
@@ -208,6 +224,7 @@ class FormValidator {
     validateFacultyId(value) {
 
         if (!value) {
+
             return false;
         }
 
@@ -224,6 +241,7 @@ class FormValidator {
     validateFullName(value) {
 
         if (!value) {
+
             return false;
         }
 
@@ -237,6 +255,7 @@ class FormValidator {
     validateEmail(value) {
 
         if (!value) {
+
             return false;
         }
 
@@ -256,9 +275,19 @@ class FormValidator {
     }
 
 
+    validateDesignation(value) {
+
+        return (
+            value &&
+            value !== ''
+        );
+    }
+
+
     validatePassword(value) {
 
         if (!value) {
+
             return false;
         }
 
@@ -272,6 +301,7 @@ class FormValidator {
             this.fields.password.element;
 
         if (!value) {
+
             return false;
         }
 
@@ -298,12 +328,14 @@ class FormValidator {
             department:
                 'Please select a department',
 
+            designation:
+                'Please select a designation',
+
             password:
                 'Password must be at least 8 characters long',
 
             confirmPassword:
                 'Passwords do not match or are too short'
-
         };
 
         return (
@@ -362,7 +394,9 @@ class FormValidator {
 
     handleSubmit(event) {
 
-        console.log('handleSubmit called');
+        console.log(
+            'handleSubmit called'
+        );
 
         event.preventDefault();
 
@@ -396,9 +430,11 @@ class FormValidator {
             department:
                 this.fields.department.element.value,
 
+            designation:
+                this.fields.designation.element.value,
+
             password:
                 this.fields.password.element.value
-
         };
 
         console.log(
@@ -412,6 +448,7 @@ class FormValidator {
                 method: 'POST',
 
                 headers: {
+
                     'Content-Type':
                         'application/json'
                 },
@@ -440,11 +477,16 @@ class FormValidator {
 
             if (data.success) {
 
-                console.log('Registration successful');
+                console.log(
+                    'Registration successful'
+                );
 
                 this.showSuccessMessage();
 
-                window.location.replace('./v-index.html');
+                window.location.replace(
+                    './v-index.html'
+                );
+
             } else {
 
                 console.log(
@@ -507,6 +549,7 @@ class FormValidator {
 
         }, 2000);
     }
+
 }
 
 

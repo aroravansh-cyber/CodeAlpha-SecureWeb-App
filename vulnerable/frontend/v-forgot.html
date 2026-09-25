@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Forgot Password | Faculty Secure Portal</title>
+
+    <link rel="stylesheet" href="v-forgot.css">
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <!-- ================= BRANDING SECTION ================= -->
+        <section class="branding-section">
+
+            <div class="branding-content">
+
+                <div class="logo">
+                    <span>HU</span>
+                </div>
+
+                <h1>Faculty Secure Portal</h1>
+
+                <p>
+                    Secure access for authorized faculty members.
+                </p>
+
+                <div class="security-info">
+                    <span class="security-icon">🔐</span>
+                    <div>
+                        <strong>Account Recovery</strong>
+                        <small>Reset your faculty portal password securely.</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FORM SECTION ================= -->
+        <section class="form-section">
+
+            <div class="form-container">
+
+                <div class="form-header">
+                    <h2>Forgot Password?</h2>
+
+                    <p>
+                        Enter your registered email address to reset your password.
+                    </p>
+                </div>
+
+
+                <form id="forgotForm">
+
+                    <div class="input-group">
+                        <label for="email">Registered Email</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+
+
+                    <button type="submit" class="submit-btn">
+                        Send Reset Link
+                    </button>
+
+                </form>
+
+
+                <div id="message" class="message"></div>
+
+
+                <div class="back-login">
+                    <a href="index.html">← Back to Login</a>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <p>
+            © 2026 Faculty Secure Portal. All rights reserved.
+        </p>
+    </footer>
+
+
+    <script src="v-forgot.js"></script>
+
+</body>
+</html>
+
