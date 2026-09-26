@@ -114,30 +114,20 @@ body {
 
 .branding-section {
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 40px;
-
     position: relative;
-
     overflow: hidden;
 }
 
 .branding-content {
     width: 100%;
-
     max-width: 450px;
-
     text-align: center;
-
     position: relative;
-
     z-index: 2;
 }
-
 
 /* ========================================
    LOGO
@@ -211,55 +201,32 @@ body {
 
 
 /* ========================================
-   FEATURES
+   PORTAL FEATURES
 ======================================== */
 
-.features-list {
+.feature-list {
     list-style: none;
-
+    padding: 0;
+    margin: 30px 0 50px;
     text-align: left;
-
-    margin: 0 auto 30px;
-
-    max-width: 300px;
 }
 
-.features-list li {
+.feature-item {
     display: flex;
-
     align-items: center;
-
-    gap: 12px;
-
     margin-bottom: 16px;
-
-    color: var(--text-secondary);
-
     font-size: 14px;
+    color: var(--text-secondary);
 }
 
 .feature-icon {
-    width: 24px;
-
-    height: 24px;
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    color: #20d9c5;
-
-    font-size: 14px;
-
+    width: 9px;
+    height: 9px;
+    margin-right: 14px;
+    background: #20d9c5;
+    transform: rotate(45deg);
     flex-shrink: 0;
 }
-
-.feature-text {
-    color: var(--text-secondary);
-}
-
 
 /* ========================================
    FORM SECTION

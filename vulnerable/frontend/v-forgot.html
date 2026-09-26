@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,78 +12,258 @@
 
 <body>
 
-    <div class="auth-container">
+    <div class="container">
 
         <!-- ================= BRANDING SECTION ================= -->
+
         <section class="branding-section">
 
             <div class="branding-content">
 
-                <div class="logo">
-                    <span>HU</span>
+                <!-- UNIVERSITY LOGO -->
+                <div class="university-logo">
+                    <img
+                        src="../images/logo.png"
+                        alt="University Logo"
+                    >
                 </div>
 
-                <h1>Faculty Secure Portal</h1>
+                <h1 class="brand-title">
+                    Faculty Secure Portal
+                </h1>
 
-                <p>
+                <p class="brand-subtitle">
+                    SECURE FACULTY ACCESS
+                </p>
+
+                <p class="brand-description">
                     Secure access for authorized faculty members.
                 </p>
 
-                <div class="security-info">
-                    <span class="security-icon">🔐</span>
-                    <div>
-                        <strong>Account Recovery</strong>
-                        <small>Reset your faculty portal password securely.</small>
-                    </div>
-                </div>
+             <!-- Portal Features -->
+                <ul class="feature-list" aria-label="Portal Features">
+
+                    <li class="feature-item">
+                        <span class="feature-icon" aria-hidden="true"></span>
+                        <span>Secure Faculty Registration</span>
+                    </li>
+
+                    <li class="feature-item">
+                        <span class="feature-icon" aria-hidden="true"></span>
+                        <span>Protected Account Access</span>
+                    </li>
+
+                    <li class="feature-item">
+                        <span class="feature-icon" aria-hidden="true"></span>
+                        <span>University-Grade Security</span>
+                    </li>
+
+                </ul>
 
             </div>
 
         </section>
 
 
-        <!-- ================= FORM SECTION ================= -->
-        <section class="form-section">
+        <!-- ================= FORGOT PASSWORD SECTION ================= -->
 
-            <div class="form-container">
+        <section class="login-section">
 
-                <div class="form-header">
-                    <h2>Forgot Password?</h2>
-
-                    <p>
-                        Enter your registered email address to reset your password.
-                    </p>
-                </div>
+            <div class="login-card">
 
 
-                <form id="forgotForm">
+                <!-- ================= EMAIL STEP ================= -->
 
-                    <div class="input-group">
-                        <label for="email">Registered Email</label>
+                <div id="emailStep">
 
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            required
-                        >
+                    <div class="card-header">
+
+                        <h2>
+                            Forgot Password?
+                        </h2>
+
+                        <p>
+                            Enter your registered email address to recover your account.
+                        </p>
+
                     </div>
 
 
-                    <button type="submit" class="submit-btn">
-                        Send Reset Link
-                    </button>
+                    <form id="forgotForm">
 
-                </form>
+                        <div class="form-group">
+
+                            <label for="email">
+                                Registered Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your registered email"
+                                required
+                                autocomplete="email"
+                            >
+
+                        </div>
 
 
-                <div id="message" class="message"></div>
+                        <button
+                            type="submit"
+                            class="btn-signin"
+                            id="sendOtpBtn"
+                        >
+                            Send OTP
+                        </button>
 
+                    </form>
 
-                <div class="back-login">
-                    <a href="index.html">← Back to Login</a>
                 </div>
+
+
+                <!-- ================= OTP STEP ================= -->
+
+                <div id="otpStep" style="display: none;">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Verify OTP
+                        </h2>
+
+                        <p>
+                            Enter the verification code sent to your registered email.
+                        </p>
+
+                    </div>
+
+
+                    <form id="otpForm">
+
+                        <div class="form-group">
+
+                            <label for="otp">
+                                Verification OTP
+                            </label>
+
+                            <input
+                                type="text"
+                                id="otp"
+                                name="otp"
+                                placeholder="Enter 6-digit OTP"
+                                maxlength="6"
+                                inputmode="numeric"
+                                autocomplete="one-time-code"
+                                required
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn-signin"
+                            id="verifyOtpBtn"
+                        >
+                            Verify OTP
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- ================= PASSWORD STEP ================= -->
+
+                <div id="passwordStep" style="display: none;">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Reset Password
+                        </h2>
+
+                        <p>
+                            Create a new password for your faculty account.
+                        </p>
+
+                    </div>
+
+
+                    <form id="resetPasswordForm">
+
+                        <div class="form-group">
+
+                            <label for="newPassword">
+                                New Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="newPassword"
+                                name="newPassword"
+                                placeholder="Enter new password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="confirmPassword">
+                                Confirm Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirm new password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn-signin"
+                            id="resetPasswordBtn"
+                        >
+                            Reset Password
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- ================= MESSAGE ================= -->
+
+                <div
+                    id="message"
+                    class="message"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
+
+
+                <!-- ================= BACK TO LOGIN ================= -->
+
+                <div class="register-link">
+
+                    <p>
+                        <a href="v-index.html">
+                            ← Back to Login
+                        </a>
+                    </p>
+
+                </div>
+
 
             </div>
 
@@ -92,15 +273,18 @@
 
 
     <!-- ================= FOOTER ================= -->
-    <footer>
+
+    <footer class="footer">
+
         <p>
             © 2026 Faculty Secure Portal. All rights reserved.
         </p>
+
     </footer>
 
 
     <script src="v-forgot.js"></script>
 
 </body>
-</html>
 
+</html>
