@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
 from email.message import EmailMessage
@@ -12,7 +12,13 @@ import time
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+
+app.secret_key = os.getenv(
+    "FLASK_SECRET_KEY",
+    "dev-secret-change-this"
+)
+
+CORS(app, supports_credentials=True)
 
 DATABASE = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
@@ -47,7 +53,8 @@ def init_db():
             email TEXT NOT NULL UNIQUE,
             department TEXT NOT NULL,
             designation TEXT NOT NULL,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
+            photo TEXT
         )
     """)
 
@@ -248,6 +255,7 @@ Faculty Security Lab
 # Home
 @app.route("/")
 def home():
+
     return jsonify({
         "status": "online",
         "message": "Faculty Security Lab Backend"
@@ -264,6 +272,7 @@ def login():
     password = data.get("password")
 
     if not faculty_id or not password:
+
         return jsonify({
             "success": False,
             "message": "Faculty ID and password are required."
@@ -287,20 +296,96 @@ def login():
 
     connection.close()
 
-    if faculty:
+    if not faculty:
+
         return jsonify({
-            "success": True,
-            "message": "Login successful.",
-            "faculty_id": faculty["faculty_id"],
-            "full_name": faculty["full_name"],
-            "department": faculty["department"],
-            "designation": faculty["designation"]
-        }), 200
+            "success": False,
+            "message": "Invalid Faculty ID or password."
+        }), 401
+
+    session["faculty_id"] = faculty["faculty_id"]
 
     return jsonify({
-        "success": False,
-        "message": "Invalid Faculty ID or password."
-    }), 401
+        "success": True,
+        "message": "Login successful.",
+        "faculty_id": faculty["faculty_id"],
+        "full_name": faculty["full_name"],
+        "email": faculty["email"],
+        "department": faculty["department"],
+        "designation": faculty["designation"],
+        "photo_url": (
+            f"http://127.0.0.1:5000/images/{faculty['photo']}"
+            if faculty["photo"]
+            else None
+        )
+    }), 200
+
+
+# Fetch current faculty data
+@app.route("/api/me", methods=["GET"])
+def get_current_faculty():
+
+    faculty_id = session.get("faculty_id")
+
+    if not faculty_id:
+
+        return jsonify({
+            "success": False,
+            "message": "Not logged in."
+        }), 401
+
+    connection = get_db_connection()
+
+    faculty = connection.execute(
+        """
+        SELECT faculty_id,
+               full_name,
+               email,
+               department,
+               designation,
+               photo
+        FROM faculty
+        WHERE faculty_id = ?
+        """,
+        (faculty_id,)
+    ).fetchone()
+
+    connection.close()
+
+    if not faculty:
+
+        session.clear()
+
+        return jsonify({
+            "success": False,
+            "message": "Faculty account not found."
+        }), 401
+
+    return jsonify({
+        "success": True,
+        "faculty_id": faculty["faculty_id"],
+        "full_name": faculty["full_name"],
+        "email": faculty["email"],
+        "department": faculty["department"],
+        "designation": faculty["designation"],
+        "photo_url": (
+            f"http://127.0.0.1:5000/images/{faculty['photo']}"
+            if faculty["photo"]
+            else None
+        )
+    }), 200
+
+
+# Logout
+@app.route("/api/logout", methods=["POST"])
+def logout():
+
+    session.clear()
+
+    return jsonify({
+        "success": True,
+        "message": "Logged out successfully."
+    }), 200
 
 
 # Register
@@ -324,6 +409,7 @@ def register():
         or not designation
         or not password
     ):
+
         return jsonify({
             "success": False,
             "message": "All fields are required."
@@ -390,6 +476,7 @@ def forgot_password():
     email = data.get("email")
 
     if not email:
+
         return jsonify({
             "success": False,
             "message": "Email is required."
@@ -411,6 +498,7 @@ def forgot_password():
     connection.close()
 
     if not faculty:
+
         return jsonify({
             "success": False,
             "message": "No faculty account was found with this email."
@@ -462,6 +550,7 @@ def verify_otp():
     otp = data.get("otp")
 
     if not email or not otp:
+
         return jsonify({
             "success": False,
             "message": "Email and OTP are required."
@@ -471,6 +560,7 @@ def verify_otp():
     otp = str(otp).strip()
 
     if email not in otp_storage:
+
         return jsonify({
             "success": False,
             "message": "No OTP request was found."
@@ -525,6 +615,117 @@ def verify_otp():
     }), 200
 
 
+# Profile photo upload
+@app.route("/api/profile/photo", methods=["POST"])
+def upload_profile_photo():
+
+    faculty_id = session.get("faculty_id")
+
+    if not faculty_id:
+
+        return jsonify({
+            "success": False,
+            "message": "Not logged in."
+        }), 401
+
+    if "photo" not in request.files:
+
+        return jsonify({
+            "success": False,
+            "message": "No photo selected."
+        }), 400
+
+    photo = request.files["photo"]
+
+    if photo.filename == "":
+
+        return jsonify({
+            "success": False,
+            "message": "No photo selected."
+        }), 400
+
+    connection = get_db_connection()
+
+    faculty = connection.execute(
+        """
+        SELECT id
+        FROM faculty
+        WHERE faculty_id = ?
+        """,
+        (faculty_id,)
+    ).fetchone()
+
+    if not faculty:
+
+        connection.close()
+
+        return jsonify({
+            "success": False,
+            "message": "Faculty account not found."
+        }), 404
+
+    image_filename = f"image{faculty['id']}.png"
+
+    images_folder = os.path.abspath(
+        os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../images"
+        )
+    )
+
+    os.makedirs(
+        images_folder,
+        exist_ok=True
+    )
+
+    photo.save(
+        os.path.join(
+            images_folder,
+            image_filename
+        )
+    )
+
+    connection.execute(
+        """
+        UPDATE faculty
+        SET photo = ?
+        WHERE faculty_id = ?
+        """,
+        (
+            image_filename,
+            faculty_id
+        )
+    )
+
+    connection.commit()
+    connection.close()
+
+    return jsonify({
+        "success": True,
+        "message": "Profile photo uploaded successfully.",
+        "photo_url": (
+            f"http://127.0.0.1:5000/images/{image_filename}"
+        )
+    }), 200
+
+
+# Serve profile images
+@app.route("/images/<filename>")
+def serve_image(filename):
+
+    images_folder = os.path.abspath(
+        os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../images"
+        )
+    )
+
+    return send_from_directory(
+        images_folder,
+        filename
+    )
+
+
 # Reset password
 @app.route("/api/reset-password", methods=["POST"])
 def reset_password():
@@ -535,6 +736,7 @@ def reset_password():
     password = data.get("password")
 
     if not email or not password:
+
         return jsonify({
             "success": False,
             "message": "Email and password are required."
@@ -543,6 +745,7 @@ def reset_password():
     email = email.strip().lower()
 
     if email not in otp_storage:
+
         return jsonify({
             "success": False,
             "message": "OTP verification is required."
@@ -564,6 +767,7 @@ def reset_password():
         }), 403
 
     if not stored_data["verified"]:
+
         return jsonify({
             "success": False,
             "message": "Please verify the OTP first."
@@ -622,3 +826,4 @@ if __name__ == "__main__":
         port=5000,
         debug=True
     )
+    

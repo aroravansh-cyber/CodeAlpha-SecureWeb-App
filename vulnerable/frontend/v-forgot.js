@@ -245,7 +245,7 @@ resetPasswordForm.addEventListener(
                 resetPasswordForm.reset();
 
                 setTimeout(function () {
-                    window.location.href = "index.html";
+                    window.location.href = "v-index.html";
                 }, 1500);
 
             } else {

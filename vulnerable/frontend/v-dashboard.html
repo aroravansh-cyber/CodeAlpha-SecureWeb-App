@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Dashboard · CodeAlpha SecureWeb</title>
+<link rel="stylesheet" href="v-dashboard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ APP SHELL ============ -->
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+        <img src="images/logo.png" alt="SecureWeb.edu Logo" class="brand__logo">
+    </div>
+
+    <nav class="sidebar__nav" aria-label="Main navigation">
+      <button class="nav__item is-active" data-view="dashboard" type="button">
+        <span class="nav__icon" aria-hidden="true">▤</span> Dashboard
+      </button>
+      <button class="nav__item" data-view="timetable" type="button">
+        <span class="nav__icon" aria-hidden="true">▦</span> Timetable
+      </button>
+      <button class="nav__item" data-view="attendance" type="button">
+        <span class="nav__icon" aria-hidden="true">◉</span> Attendance
+      </button>
+      <button class="nav__item" data-view="students" type="button">
+        <span class="nav__icon" aria-hidden="true">☰</span> Students
+      </button>
+      <button class="nav__item" data-view="profile" type="button">
+        <span class="nav__icon" aria-hidden="true">◐</span> Profile
+      </button>
+      <button class="nav__item" data-view="settings" type="button">
+        <span class="nav__icon" aria-hidden="true">⚙</span> Settings
+      </button>
+    </nav>
+
+    <div class="sidebar__footer">
+      <button class="nav__item nav__item--logout" id="logoutBtn" type="button">
+        <span class="nav__icon" aria-hidden="true">⏻</span> Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN COLUMN ============ -->
+  <div class="main-col">
+
+    <!-- ============ TOPBAR ============ -->
+    <header class="topbar">
+      <button class="topbar__menu-btn" id="menuBtn" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <h1 class="topbar__title" id="viewTitle">Dashboard</h1>
+
+      <div class="topbar__search">
+        <input type="search" id="globalSearch" placeholder="Search students by name or ID…" aria-label="Search students">
+      </div>
+
+      <div class="topbar__session">
+        <span class="session__clock" id="liveClock">--:--:--</span>
+        <div class="topbar__profile" id="profileChip">
+          <img src="" alt="" class="profile-chip__avatar" id="chipAvatar">
+          <span class="profile-chip__name" id="chipName">Loading…</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="topbar__scrim" id="topbarScrim"></div>
+
+    <!-- ============ CONTENT ============ -->
+    <main class="content" id="content">
+
+      <!-- Toast / status messages -->
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      <!-- ---------- DASHBOARD VIEW ---------- -->
+      <section class="view is-active" id="view-dashboard" data-view-panel="dashboard">
+
+        <div class="stat-grid" id="statGrid">
+          <article class="stat-card" data-stat="total">
+            <span class="stat-card__label">Total Students</span>
+            <span class="stat-card__value" id="statTotal">–</span>
+          </article>
+          <article class="stat-card stat-card--good" data-stat="present">
+            <span class="stat-card__label">Present Today</span>
+            <span class="stat-card__value" id="statPresent">–</span>
+          </article>
+          <article class="stat-card stat-card--bad" data-stat="absent">
+            <span class="stat-card__label">Absent Today</span>
+            <span class="stat-card__value" id="statAbsent">–</span>
+          </article>
+          <article class="stat-card stat-card--warn" data-stat="pending">
+            <span class="stat-card__label">Pending</span>
+            <span class="stat-card__value" id="statPending">–</span>
+          </article>
+          <article class="stat-card" data-stat="lectures">
+            <span class="stat-card__label">Today's Lectures</span>
+            <span class="stat-card__value" id="statLectures">–</span>
+          </article>
+        </div>
+
+        <div class="panel-grid">
+          <section class="panel">
+            <div class="panel__head">
+              <h2>Today's Timetable</h2>
+              <button class="btn btn--ghost btn--sm" data-goto="timetable" type="button">View all</button>
+            </div>
+            <div class="panel__body" id="dashboardTimetablePreview">
+              <p class="empty-note">Loading timetable…</p>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel__head">
+              <h2>Your Profile</h2>
+              <button class="btn btn--ghost btn--sm" data-goto="profile" type="button">Manage</button>
+            </div>
+            <div class="panel__body" id="dashboardProfilePreview">
+              <p class="empty-note">Loading profile…</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ---------- TIMETABLE VIEW ---------- -->
+      <section class="view" id="view-timetable" data-view-panel="timetable">
+        <div class="panel">
+          <div class="panel__head">
+            <h2>Today's Timetable</h2>
+            <span class="badge badge--muted" id="timetableDate">–</span>
+          </div>
+          <div class="table-scroll">
+            <table class="data-table" id="timetableTable">
+              <thead>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Faculty / Branch</th>
+                  <th>Year</th>
+                  <th>Room</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="timetableBody">
+                <tr><td colspan="8" class="empty-note">Loading timetable…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- ATTENDANCE VIEW ---------- -->
+      <section class="view" id="view-attendance" data-view-panel="attendance">
+        <div class="panel">
+          <div class="panel__head panel__head--wrap">
+            <div>
+              <h2 id="attendanceLectureTitle">Select a lecture</h2>
+              <p class="panel__subtitle" id="attendanceLectureMeta">Choose a lecture from Timetable to take attendance.</p>
+            </div>
+            <span class="badge" id="attendanceWindowBadge">Window: closed</span>
+          </div>
+
+          <div class="filter-row">
+            <input type="search" id="attendanceSearch" placeholder="Search this class by name or ID…" aria-label="Search students in lecture">
+            <select id="attendanceStatusFilter" aria-label="Filter by attendance status">
+              <option value="all">All statuses</option>
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table" id="attendanceTable">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Roll No.</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="attendanceBody">
+                <tr><td colspan="5" class="empty-note">No lecture selected yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- STUDENTS VIEW ---------- -->
+      <section class="view" id="view-students" data-view-panel="students">
+        <div class="panel">
+          <div class="panel__head panel__head--wrap">
+            <h2>Students</h2>
+          </div>
+
+          <div class="filter-row filter-row--grid">
+            <input type="search" id="studentSearch" placeholder="Search by name or ID…" aria-label="Search students">
+            <select id="filterFaculty" aria-label="Filter by faculty">
+              <option value="">Faculty: All</option>
+            </select>
+            <select id="filterBranch" aria-label="Filter by branch">
+              <option value="">Branch: All</option>
+            </select>
+            <select id="filterSpecialization" aria-label="Filter by specialization">
+              <option value="">Specialization: All</option>
+            </select>
+            <select id="filterYear" aria-label="Filter by year">
+              <option value="">Year: All</option>
+            </select>
+            <select id="filterStatus" aria-label="Filter by attendance status">
+              <option value="">Status: All</option>
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table" id="studentsTable">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Roll No.</th>
+                  <th>Name</th>
+                  <th>Faculty / Branch</th>
+                  <th>Specialization</th>
+                  <th>Year</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="studentsBody">
+                <tr><td colspan="7" class="empty-note">Loading students…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- PROFILE VIEW ---------- -->
+      <section class="view" id="view-profile" data-view-panel="profile">
+        <div class="panel panel--narrow">
+          <div class="panel__head">
+            <h2>Faculty Profile</h2>
+          </div>
+
+          <div class="profile-card">
+            <div class="profile-card__photo">
+              <img src="" alt="" id="profilePhoto">
+              <label class="photo-upload" for="photoInput">
+                Change photo
+                <input type="file" id="photoInput" accept="image/*" hidden>
+              </label>
+            </div>
+
+            <dl class="profile-card__details" id="profileDetails">
+              <div class="detail-row"><dt>Full Name</dt><dd id="profFullName">–</dd></div>
+              <div class="detail-row"><dt>Email</dt><dd id="profEmail">–</dd></div>
+              <div class="detail-row"><dt>Faculty ID</dt><dd id="profStaffId">–</dd></div>
+              <div class="detail-row"><dt>Designation</dt><dd id="profDesignation">–</dd></div>
+              <div class="detail-row"><dt>Department</dt><dd id="profBranch">–</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- SETTINGS VIEW ---------- -->
+      <section class="view" id="view-settings" data-view-panel="settings">
+        <div class="panel panel--narrow">
+          <div class="panel__head">
+            <h2>Settings</h2>
+          </div>
+          <div class="panel__body">
+            <div class="setting-row">
+              <div>
+                <strong>Attendance window</strong>
+                <p class="panel__subtitle">Students can be marked present within this many hours of a lecture starting. Enforced by the server.</p>
+              </div>
+              <span class="badge badge--muted" id="settingsWindowHours">3 hours</span>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong>Session</strong>
+                <p class="panel__subtitle">You are signed in with your faculty account. Signing out will end this session on this device.</p>
+              </div>
+              <button class="btn btn--danger btn--sm" id="settingsLogoutBtn" type="button">Logout</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="v-dashboard.js"></script>
+</body>
+</html>
