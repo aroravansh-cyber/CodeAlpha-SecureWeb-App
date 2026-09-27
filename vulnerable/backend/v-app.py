@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 from email.message import EmailMessage
+from email.mime.image import MIMEImage
 import sqlite3
 import os
 import secrets
@@ -27,12 +28,14 @@ MAX_OTP_ATTEMPTS = 5
 otp_storage = {}
 
 
+# Database connection
 def get_db_connection():
     connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
     return connection
 
 
+# Initialize database
 def init_db():
     connection = get_db_connection()
 
@@ -52,25 +55,31 @@ def init_db():
     connection.close()
 
 
-def send_otp_email(receiver_email, otp):
+# Send OTP email
+def send_otp_email(receiver_email, otp, faculty_name):
 
     if not MAIL_USERNAME or not MAIL_PASSWORD:
         raise RuntimeError("Email configuration is missing.")
 
     message = EmailMessage()
 
-    message["Subject"] = "Hridya University | Faculty Password Reset OTP"
+    message["Subject"] = (
+        "Hridya University | Faculty Password Reset OTP"
+    )
+
     message["From"] = MAIL_USERNAME
     message["To"] = receiver_email
 
     message.set_content(
         f"""HRIDYA UNIVERSITY
-Faculty Security Lab
+
+HU Security Team
+
 ================================
 
 PASSWORD RESET REQUEST
 
-Hello Faculty,
+Hello {faculty_name},
 
 We received a request to reset the password
 associated with your faculty account.
@@ -88,6 +97,7 @@ For your security, do not share this OTP
 with anyone.
 
 Regards,
+
 Hridya University
 Faculty Security Lab
 """
@@ -95,88 +105,147 @@ Faculty Security Lab
 
     message.add_alternative(
         f"""
-        <html>
-        <body style="margin:0;padding:0;background:#f4f4f4;
-                     font-family:Arial,sans-serif;color:#222;">
-            <div style="max-width:600px;margin:40px auto;background:#ffffff;
-                        border:1px solid #ddd;border-radius:10px;
-                        overflow:hidden;">
+<html>
 
-                <div style="background:#171717;color:#ffffff;
-                            padding:24px 30px;">
-                    <div style="font-size:13px;letter-spacing:2px;
-                                color:#bbbbbb;">
-                        HRIDYA UNIVERSITY
-                    </div>
+<body style="margin:0;padding:0;background:#f4f4f4;
+font-family:Arial,sans-serif;color:#222;">
 
-                    <div style="font-size:22px;font-weight:bold;
-                                margin-top:8px;">
-                        Faculty Security Lab
-                    </div>
-                </div>
+<div style="max-width:600px;margin:40px auto;
+background:#ffffff;border:1px solid #ddd;
+border-radius:10px;overflow:hidden;">
 
-                <div style="padding:30px;">
+<div style="background:#171717;color:#ffffff;
+padding:24px 30px;text-align:center;">
 
-                    <h2 style="margin-top:0;">
-                        Password Reset Request
-                    </h2>
+<img src="cid:hu_logo"
+     width="70"
+     height="70"
+     style="display:block;margin:0 auto 12px;">
 
-                    <p>
-                        Hello Faculty,
-                    </p>
+<div style="font-size:13px;letter-spacing:2px;
+color:#bbbbbb;">
 
-                    <p>
-                        We received a request to reset the password
-                        associated with your faculty account.
-                    </p>
+HRIDYA UNIVERSITY
 
-                    <p>
-                        Your verification code is:
-                    </p>
+</div>
 
-                    <div style="margin:25px 0;padding:18px;
-                                background:#f3f3f3;border-radius:8px;
-                                text-align:center;font-size:32px;
-                                font-weight:bold;letter-spacing:8px;">
-                        {otp}
-                    </div>
+<div style="font-size:22px;font-weight:bold;
+margin-top:8px;">
 
-                    <p>
-                        <strong>This OTP is valid for 5 minutes.</strong>
-                    </p>
+Faculty Security Lab
 
-                    <p style="color:#666;">
-                        If you did not request a password reset,
-                        you can safely ignore this email.
-                    </p>
+</div>
 
-                    <p style="color:#666;">
-                        For your security, do not share this OTP
-                        with anyone.
-                    </p>
+</div>
 
-                    <hr style="border:none;border-top:1px solid #eee;
-                               margin:30px 0;">
+<div style="padding:30px;">
 
-                    <p style="font-size:13px;color:#888;">
-                        Hridya University<br>
-                        Faculty Security Lab
-                    </p>
+<h2 style="margin-top:0;">
+Password Reset Request
+</h2>
 
-                </div>
-            </div>
-        </body>
-        </html>
-        """,
+<p>
+Hello {faculty_name},
+</p>
+
+<p>
+We received a request to reset the password
+associated with your faculty account.
+</p>
+
+<p>
+Your verification code is:
+</p>
+
+<div style="margin:25px 0;padding:18px;
+background:#f3f3f3;border-radius:8px;
+text-align:center;font-size:32px;
+font-weight:bold;letter-spacing:8px;">
+
+{otp}
+
+</div>
+
+<p>
+<strong>This OTP is valid for 5 minutes.</strong>
+</p>
+
+<p style="color:#666;">
+If you did not request a password reset,
+you can safely ignore this email.
+</p>
+
+<p style="color:#666;">
+For your security, do not share this OTP
+with anyone.
+</p>
+
+<hr style="border:none;
+border-top:1px solid #eee;
+margin:30px 0;">
+
+<p style="font-size:13px;color:#888;">
+Hridya University<br>
+Faculty Security Lab
+</p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+""",
         subtype="html"
     )
 
-    with smtplib.SMTP("smtp.gmail.com", 587, timeout=20) as server:
+    # Logo path
+    logo_path = os.path.abspath(
+        os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "../images/logo.png"
+        )
+    )
+
+    print("Logo path:", logo_path)
+    print("Logo exists:", os.path.exists(logo_path))
+
+    # Attach logo inline
+    with open(logo_path, "rb") as f:
+        logo = MIMEImage(f.read())
+
+    logo.add_header(
+        "Content-ID",
+        "<hu_logo>"
+    )
+
+    logo.add_header(
+        "Content-Disposition",
+        "inline",
+        filename="logo.png"
+    )
+
+    message.attach(logo)
+
+    # Send email
+    with smtplib.SMTP(
+        "smtp.gmail.com",
+        587,
+        timeout=20
+    ) as server:
+
         server.starttls()
-        server.login(MAIL_USERNAME, MAIL_PASSWORD)
+
+        server.login(
+            MAIL_USERNAME,
+            MAIL_PASSWORD
+        )
+
         server.send_message(message)
 
 
+# Home
 @app.route("/")
 def home():
     return jsonify({
@@ -185,6 +254,7 @@ def home():
     })
 
 
+# Login
 @app.route("/api/login", methods=["POST"])
 def login():
 
@@ -203,11 +273,16 @@ def login():
 
     faculty = connection.execute(
         """
-        SELECT * FROM faculty
+        SELECT *
+        FROM faculty
         WHERE (faculty_id = ? OR email = ?)
         AND password = ?
         """,
-        (faculty_id, faculty_id, password)
+        (
+            faculty_id,
+            faculty_id,
+            password
+        )
     ).fetchone()
 
     connection.close()
@@ -228,6 +303,7 @@ def login():
     }), 401
 
 
+# Register
 @app.route("/api/register", methods=["POST"])
 def register():
 
@@ -256,6 +332,7 @@ def register():
     email = email.strip().lower()
 
     try:
+
         connection = get_db_connection()
 
         connection.execute(
@@ -297,12 +374,14 @@ def register():
         }), 201
 
     except sqlite3.IntegrityError:
+
         return jsonify({
             "success": False,
             "message": "Faculty ID or email already exists."
         }), 409
 
 
+# Forgot password
 @app.route("/api/forgot-password", methods=["POST"])
 def forgot_password():
 
@@ -337,7 +416,9 @@ def forgot_password():
             "message": "No faculty account was found with this email."
         }), 404
 
-    otp = str(secrets.randbelow(900000) + 100000)
+    otp = str(
+        secrets.randbelow(900000) + 100000
+    )
 
     otp_storage[email] = {
         "otp": otp,
@@ -347,9 +428,15 @@ def forgot_password():
     }
 
     try:
-        send_otp_email(email, otp)
+
+        send_otp_email(
+            email,
+            otp,
+            faculty["full_name"]
+        )
 
     except Exception as error:
+
         otp_storage.pop(email, None)
 
         print("OTP email failed:", error)
@@ -365,6 +452,7 @@ def forgot_password():
     }), 200
 
 
+# Verify OTP
 @app.route("/api/verify-otp", methods=["POST"])
 def verify_otp():
 
@@ -390,7 +478,12 @@ def verify_otp():
 
     stored_data = otp_storage[email]
 
-    if time.time() - stored_data["created_at"] > OTP_EXPIRY_SECONDS:
+    if (
+        time.time()
+        - stored_data["created_at"]
+        > OTP_EXPIRY_SECONDS
+    ):
+
         del otp_storage[email]
 
         return jsonify({
@@ -399,6 +492,7 @@ def verify_otp():
         }), 401
 
     if stored_data["attempts"] >= MAX_OTP_ATTEMPTS:
+
         del otp_storage[email]
 
         return jsonify({
@@ -406,10 +500,17 @@ def verify_otp():
             "message": "Too many incorrect attempts. Please request a new OTP."
         }), 429
 
-    if not secrets.compare_digest(stored_data["otp"], otp):
+    if not secrets.compare_digest(
+        stored_data["otp"],
+        otp
+    ):
+
         stored_data["attempts"] += 1
 
-        remaining = MAX_OTP_ATTEMPTS - stored_data["attempts"]
+        remaining = (
+            MAX_OTP_ATTEMPTS
+            - stored_data["attempts"]
+        )
 
         return jsonify({
             "success": False,
@@ -424,6 +525,7 @@ def verify_otp():
     }), 200
 
 
+# Reset password
 @app.route("/api/reset-password", methods=["POST"])
 def reset_password():
 
@@ -448,7 +550,12 @@ def reset_password():
 
     stored_data = otp_storage[email]
 
-    if time.time() - stored_data["created_at"] > OTP_EXPIRY_SECONDS:
+    if (
+        time.time()
+        - stored_data["created_at"]
+        > OTP_EXPIRY_SECONDS
+    ):
+
         del otp_storage[email]
 
         return jsonify({
@@ -474,6 +581,7 @@ def reset_password():
     ).fetchone()
 
     if not faculty:
+
         connection.close()
 
         return jsonify({
@@ -487,7 +595,10 @@ def reset_password():
         SET password = ?
         WHERE email = ?
         """,
-        (password, email)
+        (
+            password,
+            email
+        )
     )
 
     connection.commit()
@@ -501,6 +612,7 @@ def reset_password():
     }), 200
 
 
+# Start server
 if __name__ == "__main__":
 
     init_db()
