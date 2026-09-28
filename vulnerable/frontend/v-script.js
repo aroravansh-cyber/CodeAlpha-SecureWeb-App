@@ -170,6 +170,7 @@ loginForm.addEventListener('submit', function(event) {
     // This will be a POST request to the Flask backend
     fetch("http://127.0.0.1:5000/api/login", {
         method: "POST",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json"
         },
@@ -184,7 +185,7 @@ loginForm.addEventListener('submit', function(event) {
 
         if (data.success) {
             console.log("LOGIN SUCCESS");
-            window.location.replace("./dashboard.html");
+            window.location.replace("./v-dashboard.html");
         } 
         else {
             alert(data.message);

@@ -100,21 +100,111 @@
                     <div class="form-group">
                         <label for="department">Department</label>
                         <select id="department" name="department" required>
-                            <option value="">Select your department</option>
-                            <option value="engineering">Engineering</option>
-                            <option value="computer-applications">Computer Applications</option>
-                            <option value="management">Management</option>
-                            <option value="commerce">Commerce</option>
-                            <option value="law">Law</option>
-                            <option value="medical">Medical</option>
-                            <option value="nursing">Nursing</option>
-                            <option value="pharmacy">Pharmacy</option>
-                            <option value="science">Science</option>
-                            <option value="agriculture">Agriculture</option>
-                            <option value="education">Education</option>
-                            <option value="humanities">Humanities</option>
-                            <option value="social-sciences">Social Sciences</option>
-                            <option value="hotel-management">Hotel Management</option>
+
+                            <option value="">Select your program</option>
+
+                            <optgroup label="Engineering & Technology">
+                                <option value="btech-cse">B.Tech Computer Science & Engineering</option>
+                                <option value="btech-cybersecurity">B.Tech Cybersecurity</option>
+                                <option value="btech-ai-ml">B.Tech Artificial Intelligence & Machine Learning</option>
+                                <option value="btech-data-science">B.Tech Data Science</option>
+                                <option value="btech-it">B.Tech Information Technology</option>
+                                <option value="btech-ece">B.Tech Electronics & Communication Engineering</option>
+                                <option value="btech-ee">B.Tech Electrical Engineering</option>
+                                <option value="btech-me">B.Tech Mechanical Engineering</option>
+                                <option value="btech-ce">B.Tech Civil Engineering</option>
+                            </optgroup>
+
+                            <optgroup label="Computer Applications">
+                                <option value="bca">BCA</option>
+                                <option value="bca-cybersecurity">BCA Cybersecurity</option>
+                                <option value="bca-ai-ml">BCA Artificial Intelligence & Machine Learning</option>
+                                <option value="bsc-cs">B.Sc Computer Science</option>
+                                <option value="bsc-it">B.Sc Information Technology</option>
+                                <option value="mca">MCA</option>
+                            </optgroup>
+
+                            <optgroup label="Medical">
+                                <option value="mbbs">MBBS</option>
+                                <option value="bds">BDS</option>
+                                <option value="bams">BAMS</option>
+                                <option value="bhms">BHMS</option>
+                                <option value="bums">BUMS</option>
+                            </optgroup>
+
+                            <optgroup label="Nursing">
+                                <option value="bsc-nursing">B.Sc Nursing</option>
+                                <option value="post-basic-bsc-nursing">Post Basic B.Sc Nursing</option>
+                                <option value="msc-nursing">M.Sc Nursing</option>
+                                <option value="gnm">GNM</option>
+                                <option value="anm">ANM</option>
+                            </optgroup>
+
+                            <optgroup label="Pharmacy">
+                                <option value="bpharm">B.Pharm</option>
+                                <option value="pharm-d">Pharm.D</option>
+                                <option value="dpharm">D.Pharm</option>
+                                <option value="mpharm">M.Pharm</option>
+                            </optgroup>
+
+                            <optgroup label="Allied Health Sciences">
+                                <option value="bsc-mlt">B.Sc Medical Laboratory Technology</option>
+                                <option value="bsc-radiology">B.Sc Radiology & Imaging Technology</option>
+                                <option value="bsc-ott">B.Sc Operation Theatre Technology</option>
+                                <option value="bsc-anesthesia">B.Sc Anesthesia Technology</option>
+                                <option value="bsc-optometry">B.Sc Optometry</option>
+                                <option value="bsc-cardiac-care">B.Sc Cardiac Care Technology</option>
+                                <option value="bsc-dialysis">B.Sc Dialysis Technology</option>
+                                <option value="bsc-respiratory">B.Sc Respiratory Therapy</option>
+                                <option value="bpt">Bachelor of Physiotherapy</option>
+                            </optgroup>
+
+                            <optgroup label="Agriculture & Forestry">
+                                <option value="bsc-agriculture">B.Sc Agriculture</option>
+                                <option value="bsc-horticulture">B.Sc Horticulture</option>
+                                <option value="btech-agri">B.Tech Agricultural Engineering</option>
+                                <option value="bsc-forestry">B.Sc Forestry</option>
+                            </optgroup>
+
+                            <optgroup label="Management & Commerce">
+                                <option value="bba">BBA</option>
+                                <option value="bba-finance">BBA Finance</option>
+                                <option value="bba-marketing">BBA Marketing</option>
+                                <option value="bba-hr">BBA Human Resource Management</option>
+                                <option value="bcom">B.Com</option>
+                                <option value="bcom-hons">B.Com (Hons.)</option>
+                                <option value="mcom">M.Com</option>
+                                <option value="mba">MBA</option>
+                            </optgroup>
+
+                            <optgroup label="Law">
+                                <option value="llb">LLB</option>
+                                <option value="ba-llb">BA LLB</option>
+                                <option value="bba-llb">BBA LLB</option>
+                                <option value="llm">LLM</option>
+                            </optgroup>
+
+                            <optgroup label="Arts & Humanities">
+                                <option value="ba">BA</option>
+                                <option value="ba-english">BA English</option>
+                                <option value="ba-psychology">BA Psychology</option>
+                                <option value="ba-economics">BA Economics</option>
+                                <option value="ba-sociology">BA Sociology</option>
+                                <option value="ba-political-science">BA Political Science</option>
+                                <option value="ba-history">BA History</option>
+                            </optgroup>
+
+                            <optgroup label="Education">
+                                <option value="bed">B.Ed</option>
+                                <option value="med">M.Ed</option>
+                                <option value="deled">D.El.Ed</option>
+                            </optgroup>
+
+                            <optgroup label="Hospitality & Tourism">
+                                <option value="bhm">Bachelor of Hotel Management</option>
+                                <option value="bttm">Bachelor of Travel & Tourism Management</option>
+                            </optgroup>
+
                         </select>
 
                         <span class="error-message"></span>
@@ -125,14 +215,27 @@
                         <label for="designation">Designation</label>
                         <select id="designation" name="designation" required>
                             <option value="">Select your designation</option>
+
                             <option value="Professor">Professor</option>
+                            <option value="Senior Professor">Senior Professor</option>
                             <option value="Associate Professor">Associate Professor</option>
                             <option value="Assistant Professor">Assistant Professor</option>
                             <option value="Lecturer">Lecturer</option>
+
                             <option value="HOD">Head of Department (HOD)</option>
                             <option value="Dean">Dean</option>
+                            <option value="Director">Director</option>
+                            <option value="Principal">Principal</option>
+
                             <option value="Lab Instructor">Lab Instructor</option>
+                            <option value="Clinical Instructor">Clinical Instructor</option>
+                            <option value="Teaching Assistant">Teaching Assistant</option>
+
+                            <option value="Research Professor">Research Professor</option>
+                            <option value="Research Associate">Research Associate</option>
+
                             <option value="Visiting Faculty">Visiting Faculty</option>
+                            <option value="Guest Faculty">Guest Faculty</option>
                         </select>
                         <span class="error-message"></span>
                     </div>
