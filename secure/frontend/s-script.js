@@ -185,7 +185,7 @@ loginForm.addEventListener('submit', function(event) {
 
         if (data.success) {
             console.log("LOGIN SUCCESS");
-            window.location.replace("./v-dashboard.html");
+            window.location.replace("./s-dashboard.html");
         } 
         else {
             alert(data.message);

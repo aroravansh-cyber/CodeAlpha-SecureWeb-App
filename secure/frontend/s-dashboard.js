@@ -1,6 +1,6 @@
 const CONFIG = {
     API_BASE: "http://127.0.0.1:5000/api",
-    LOGIN_URL: "v-index.html",
+    LOGIN_URL: "s-index.html",
     ATTENDANCE_WINDOW_HOURS: 3,
     REFRESH_INTERVAL: 30000
 };

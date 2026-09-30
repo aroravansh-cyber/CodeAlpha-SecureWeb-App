@@ -484,7 +484,7 @@ class FormValidator {
                 this.showSuccessMessage();
 
                 window.location.replace(
-                    './v-index.html'
+                    './s-index.html'
                 );
 
             } else {

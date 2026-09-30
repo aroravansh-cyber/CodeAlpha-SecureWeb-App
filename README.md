@@ -8,64 +8,120 @@ b<div align="center">
 
 </div>
 
-## About the Project
+🔐 CodeAlpha SecureWeb-App
+A web application security project demonstrating the difference between a Vulnerable Version and a Secure Version of a Faculty Secure Portal.
+🔴 Vulnerable Version
+The vulnerable version intentionally contains common security weaknesses to demonstrate how insecure implementations can create risks.
+Examples:
 
-SecureWeb-App is a fictional company-style web application with a login system and backend API.
+Plaintext password storage
+SQL injection risk
+Missing CSRF protection
+Plaintext OTP storage
+Weak file upload validation
+Default session settings
+No rate limiting
+Limited security headers
+Debug mode enabled
+Weak secret fallbacks
 
-The project focuses on the complete development cycle:
+🟢 Secure Version
+The secure version applies security controls to address the identified weaknesses.
+Examples:
 
-**Build → Test → Find Vulnerabilities → Fix → Re-test → Document**
+Password hashing
+Parameterized SQL queries
+CSRF token validation
+Hashed OTP storage
+File type/size/content validation
+Secure session cookies
+Login and OTP rate limiting
+Security headers
+Debug mode disabled
+Environment-based secrets
 
-The goal is to understand secure coding practices through a realistic web application rather than only studying vulnerabilities theoretically.
+⚖️ Vulnerable vs Secure
 
----
 
-## Objectives
 
-- Build a functional web application
-- Connect frontend, backend, and database
-- Implement user authentication
-- Identify common security vulnerabilities
-- Apply secure coding practices
-- Test the application after security fixes
-- Document security findings and improvements
+Area
+🔴 Vulnerable
+🟢 Secure
 
----
-## Deployment
 
-Frontend
--The frontend can be deployed through Netlify.
-Backend
--The Python/FastAPI backend can be deployed as a Render Web Service.
-Database
--The application uses PostgreSQL for persistent data storage.
 
----
-## Tests Performed
 
-| Test | Purpose |
-|---|---|
-| Login Testing | Check authentication |
-| Input Validation | Check invalid/malicious input |
-| SQL Injection | Check database query protection |
-| XSS | Check unsafe user input |
-| Authentication | Check unauthorized access |
-| IDOR | Check access control |
-| Password Security | Check password storage |
-| Rate Limiting | Check repeated requests |
-| Secrets Check | Check for exposed credentials |
-| CORS | Check API access restrictions |
----
+Passwords
+Plaintext
+Hashed
 
-## Project Focus
 
-This project was developed to gain practical experience in **secure web development, vulnerability identification, and security testing**.
+SQL
+Injection risk
+Parameterized queries
 
-## Author
 
-**Vansh Arora**
+CSRF
+Missing
+Token validation
 
-B.Tech CSE — Cybersecurity
 
-- GitHub: [@aroravansh-cyber](https://github.com/aroravansh-cyber)
-- LinkedIn: [Vansh Arora](https://www.linkedin.com/in/eng-vansh-arora/)
+OTP
+Plaintext
+Hashed
+
+
+File Upload
+Weak validation
+Strict validation
+
+
+Sessions
+Default
+Secure settings
+
+
+Rate Limiting
+Missing
+Login/OTP throttling
+
+
+Headers
+Limited
+Security headers
+
+
+Debug
+Enabled
+Disabled
+
+
+Secrets
+Weak fallback
+Environment-based
+
+
+
+🛡️ Security Audit
+The application was reviewed for:
+
+Authentication & password security
+SQL Injection
+CSRF
+OTP security
+File upload security
+Session security
+Rate limiting
+Security headers
+Debug configuration
+Secret management
+
+🧰 Tech Stack
+Frontend: HTML, CSS, JavaScript
+Backend: Python, Flask
+Database: SQLite
+⚠️ Note
+The Vulnerable Version is intended only for controlled local security testing and should not be used with real credentials or production data.
+🎯 Objective
+To practically demonstrate:
+Vulnerability → Security Audit → Fix → Secure Implementation
