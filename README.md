@@ -4,27 +4,39 @@
 
 <br><br>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=40&pause=1000&color=06B6D4&center=true&vCenter=true&width=700&lines=Secure+Coding+Review;Break+It.+Audit+It.+Fix+It." alt="Secure Coding Review"/>
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=38&pause=1000&color=06B6D4&center=true&vCenter=true&width=700&lines=CodeAlpha+Secure+Coding+Review" alt="Secure Coding Review"/>
 
 <br>
 
+
 </div>
+
+<br>
 
 ---
 
-## What is this?
+<br>
 
-A **Faculty Secure Portal** built twice: first full of real-world security mistakes, then rebuilt after a proper security audit. Put the two versions side by side and you can see exactly how an attack works and exactly how the fix stops it.
+## About the Project
 
-```mermaid
-flowchart LR
-    A[Vulnerable App] --> B[Security Audit] --> C[Security Fixes] --> D[Secure App]
-```
+A **Faculty Secure Portal** built twice: first full of real-world security mistakes, then rebuilt after a proper security audit. Placing both versions side by side shows exactly how an attack works and how the fix stops it.
+
+<br>
+
+<p align="center">
+  <img src="assets/flow.svg" width="800" alt="Vulnerable App to Security Audit to Security Fixes to Secure App"/>
+</p>
+
+<br>
 
 > [!WARNING]
 > The vulnerable version is intentionally insecure. Run it only on your own machine for testing. Never deploy it.
 
+<br>
+
 ---
+
+<br>
 
 ## Vulnerable vs Secure
 
@@ -41,12 +53,18 @@ flowchart LR
 | **Debug Mode** | Enabled | Disabled |
 | **Secrets** | Weak fallback | Environment variables |
 
+<br>
+
 ---
+
+<br>
 
 ## See the Difference
 
+### SQL Injection Example
+
 <details>
-<summary><b>SQL Injection: click to expand</b></summary>
+<summary><b>Click to expand</b></summary>
 
 <br>
 
@@ -62,7 +80,11 @@ Entering `' OR '1'='1` in the login form logs you in on the vulnerable version. 
 
 </details>
 
+<br>
+
 ---
+
+<br>
 
 ## Tech Stack
 
@@ -73,12 +95,19 @@ Entering `' OR '1'='1` in the login form logs you in on the vulnerable version. 
 | **Database** | SQLite |
 | **Environment** | Local security lab |
 
+<br>
+
 ---
+
+<br>
 
 ## Project Structure
 
 ```
 CodeAlpha-SecureWeb-App/
+├── assets/
+│   ├── CodeAlpha-logo.png
+│   └── flow.svg
 ├── vulnerable/
 │   ├── frontend/
 │   └── backend/
@@ -89,27 +118,45 @@ CodeAlpha-SecureWeb-App/
         └── s-app.py
 ```
 
+<br>
+
 ---
+
+<br>
 
 ## Getting Started
 
+### 1. Clone the repository
+
 ```bash
-# Clone the repo
 git clone https://github.com/<your-username>/CodeAlpha-SecureWeb-App.git
 cd CodeAlpha-SecureWeb-App
+```
 
-# Install dependencies
+### 2. Install dependencies
+
+```bash
 pip install flask
+```
 
-# Run the vulnerable version (local testing only)
+### 3. Run the vulnerable version (local testing only)
+
+```bash
 python vulnerable/backend/v-app.py
+```
 
-# Run the secure version (set SECRET_KEY first)
+### 4. Run the secure version
+
+```bash
 export SECRET_KEY="your-long-random-secret"
 python secure/backend/s-app.py
 ```
 
+<br>
+
 ---
+
+<br>
 
 ## Disclaimer
 
