@@ -1,127 +1,116 @@
-b<div align="center">
+<div align="center">
 
-<img src="assets/CodeAlpha-logo.png" width="250" alt="CodeAlpha Logo"/>
+<img src="assets/CodeAlpha-logo.png" width="220" alt="CodeAlpha Logo"/>
 
-  <br/>
+<br><br>
 
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=44&pause=1000&color=06B6D4&center=true&vCenter=true&width=600&lines=Secure+Coding+Review" alt="Secure Coding Review"/>
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=40&pause=1000&color=06B6D4&center=true&vCenter=true&width=700&lines=Secure+Coding+Review;Break+It.+Audit+It.+Fix+It." alt="Secure Coding Review"/>
+
+<br>
 
 </div>
 
-🔐 CodeAlpha SecureWeb-App
-A web application security project demonstrating the difference between a Vulnerable Version and a Secure Version of a Faculty Secure Portal.
-🔴 Vulnerable Version
-The vulnerable version intentionally contains common security weaknesses to demonstrate how insecure implementations can create risks.
-Examples:
+---
 
-Plaintext password storage
-SQL injection risk
-Missing CSRF protection
-Plaintext OTP storage
-Weak file upload validation
-Default session settings
-No rate limiting
-Limited security headers
-Debug mode enabled
-Weak secret fallbacks
+## What is this?
 
-🟢 Secure Version
-The secure version applies security controls to address the identified weaknesses.
-Examples:
+A **Faculty Secure Portal** built twice: first full of real-world security mistakes, then rebuilt after a proper security audit. Put the two versions side by side and you can see exactly how an attack works and exactly how the fix stops it.
 
-Password hashing
-Parameterized SQL queries
-CSRF token validation
-Hashed OTP storage
-File type/size/content validation
-Secure session cookies
-Login and OTP rate limiting
-Security headers
-Debug mode disabled
-Environment-based secrets
+```mermaid
+flowchart LR
+    A[Vulnerable App] --> B[Security Audit] --> C[Security Fixes] --> D[Secure App]
+```
 
-⚖️ Vulnerable vs Secure
+> [!WARNING]
+> The vulnerable version is intentionally insecure. Run it only on your own machine for testing. Never deploy it.
 
+---
 
+## Vulnerable vs Secure
 
-Area
-🔴 Vulnerable
-🟢 Secure
+| Security Area | Vulnerable Version | Secure Version |
+|:---|:---|:---|
+| **Passwords** | Stored as plaintext | Hashed |
+| **SQL Queries** | Injection risk | Parameterized queries |
+| **CSRF** | No protection | Token validation |
+| **OTP** | Stored as plaintext | Hashed |
+| **File Upload** | Weak validation | Type, size and content checks |
+| **Sessions** | Default settings | Secure cookies |
+| **Rate Limiting** | Missing | Login and OTP throttling |
+| **Security Headers** | Limited | Enabled |
+| **Debug Mode** | Enabled | Disabled |
+| **Secrets** | Weak fallback | Environment variables |
 
+---
 
+## See the Difference
 
+<details>
+<summary><b>SQL Injection: click to expand</b></summary>
 
-Passwords
-Plaintext
-Hashed
+<br>
 
+```python
+# Vulnerable: user input goes straight into the query
+query = f"SELECT * FROM users WHERE username = '{username}'"
 
-SQL
-Injection risk
-Parameterized queries
+# Secure: parameterized query
+db.execute("SELECT * FROM users WHERE username = ?", (username,))
+```
 
+Entering `' OR '1'='1` in the login form logs you in on the vulnerable version. The secure version rejects it.
 
-CSRF
-Missing
-Token validation
+</details>
 
+---
 
-OTP
-Plaintext
-Hashed
+## Tech Stack
 
+| Layer | Technology |
+|:---|:---|
+| **Frontend** | HTML, CSS, JavaScript |
+| **Backend** | Python, Flask |
+| **Database** | SQLite |
+| **Environment** | Local security lab |
 
-File Upload
-Weak validation
-Strict validation
+---
 
+## Project Structure
 
-Sessions
-Default
-Secure settings
+```
+CodeAlpha-SecureWeb-App/
+├── vulnerable/
+│   ├── frontend/
+│   └── backend/
+│       └── v-app.py
+└── secure/
+    ├── frontend/
+    └── backend/
+        └── s-app.py
+```
 
+---
 
-Rate Limiting
-Missing
-Login/OTP throttling
+## Getting Started
 
+```bash
+# Clone the repo
+git clone https://github.com/<your-username>/CodeAlpha-SecureWeb-App.git
+cd CodeAlpha-SecureWeb-App
 
-Headers
-Limited
-Security headers
+# Install dependencies
+pip install flask
 
+# Run the vulnerable version (local testing only)
+python vulnerable/backend/v-app.py
 
-Debug
-Enabled
-Disabled
+# Run the secure version (set SECRET_KEY first)
+export SECRET_KEY="your-long-random-secret"
+python secure/backend/s-app.py
+```
 
+---
 
-Secrets
-Weak fallback
-Environment-based
+## Disclaimer
 
-
-
-🛡️ Security Audit
-The application was reviewed for:
-
-Authentication & password security
-SQL Injection
-CSRF
-OTP security
-File upload security
-Session security
-Rate limiting
-Security headers
-Debug configuration
-Secret management
-
-🧰 Tech Stack
-Frontend: HTML, CSS, JavaScript
-Backend: Python, Flask
-Database: SQLite
-⚠️ Note
-The Vulnerable Version is intended only for controlled local security testing and should not be used with real credentials or production data.
-🎯 Objective
-To practically demonstrate:
-Vulnerability → Security Audit → Fix → Secure Implementation
+This project is for **educational and authorized security testing only**. The author is not responsible for misuse.
