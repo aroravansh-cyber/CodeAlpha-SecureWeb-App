@@ -1,0 +1,908 @@
+/* ========================================
+   FACULTY REGISTRATION - STYLES
+   Vulnerable Version for CodeAlpha Auditing
+======================================== */
+
+
+/* ========================================
+   COLOR VARIABLES
+======================================== */
+
+:root {
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a1f2e;
+    --bg-tertiary: #252c3c;
+
+    --text-primary: #ffffff;
+    --text-secondary: #b0b8c1;
+    --text-tertiary: #7a8291;
+
+    --accent-primary: #1687ff;
+    --accent-button: #0066ff;
+    --accent-success: #10b981;
+
+    --border-color: rgba(22, 135, 255, 0.15);
+
+    --input-bg: #f5f5f5;
+    --input-text: #1a1a1a;
+    --input-border: #d0d0d0;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+    --transition-speed: 0.3s;
+    --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* ========================================
+   GLOBAL RESET
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* ========================================
+   BODY
+======================================== */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    background-image:
+        linear-gradient(
+            rgba(5, 11, 20, 0.35),
+            rgba(5, 11, 20, 0.35)
+        ),
+        url("../images/campus-bg.png");
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    color: var(--text-primary);
+
+    line-height: 1.6;
+
+    overflow-x: hidden;
+}
+
+
+/* ========================================
+   MAIN CONTAINER
+======================================== */
+
+.container {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    gap: 2rem;
+
+    position: relative;
+
+    z-index: 1;
+
+    padding-bottom: 70px;
+}
+
+
+/* ========================================
+   BRANDING SECTION
+======================================== */
+
+.branding-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.branding-content {
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================
+   LOGO
+======================================== */
+
+.logo-area {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-bottom: 5px;
+}
+
+.logo {
+    width: 255px;
+
+    height: 225px;
+
+    object-fit: contain;
+}
+
+
+/* ========================================
+   PORTAL TEXT
+======================================== */
+
+.portal-title {
+    font-size: 32px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1687ff 0%,
+            #20d9c5 100%
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+}
+
+.portal-subtitle {
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.8px;
+
+    color: #20d9c5;
+
+    margin-bottom: 20px;
+}
+
+.portal-description {
+    color: var(--text-secondary);
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    margin-bottom: 35px;
+}
+
+
+/* ========================================
+   PORTAL FEATURES
+======================================== */
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0 50px;
+    text-align: left;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.feature-icon {
+    width: 9px;
+    height: 9px;
+    margin-right: 14px;
+    background: #20d9c5;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+}
+
+/* ========================================
+   FORM SECTION
+======================================== */
+
+.form-section {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px 40px 50px;
+
+    position: relative;
+}
+
+
+/* ========================================
+   FORM CARD
+======================================== */
+
+.form-card {
+    width: 100%;
+
+    max-width: 620px;
+
+    padding: 32px;
+
+    background: rgba(10, 15, 22, 0.58);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 14px;
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.40);
+
+    position: relative;
+
+    animation: slideIn 0.5s ease-out;
+}
+
+.form-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #20d9c5,
+            transparent
+        );
+
+    opacity: 0.3;
+
+    border-radius: 14px 14px 0 0;
+}
+
+@keyframes slideIn {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* ========================================
+   FORM HEADER
+======================================== */
+
+.form-title {
+    font-size: 26px;
+
+    font-weight: 700;
+
+    color: var(--text-primary);
+
+    margin-bottom: 8px;
+}
+
+.form-subtitle {
+    font-size: 14px;
+
+    color: var(--text-secondary);
+
+    margin-bottom: 28px;
+}
+
+
+/* ========================================
+   REGISTRATION FORM
+======================================== */
+
+.registration-form {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    column-gap: 18px;
+
+    row-gap: 0;
+}
+
+
+/* ========================================
+   FORM GROUP
+======================================== */
+
+.form-group {
+    margin-bottom: 20px;
+
+    min-width: 0;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    color: var(--text-secondary);
+
+    margin-bottom: 8px;
+}
+
+
+/* ========================================
+   INPUTS & SELECT
+======================================== */
+
+/* ========================================
+   TRANSPARENT FORM FIELDS
+======================================== */
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 10px 13px;
+
+    background: rgba(15, 23, 42, 0.50);
+
+    color: #E8EEF5;
+
+    border: 1px solid rgba(22, 135, 255, 0.15);
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: rgba(160, 174, 192, 0.60);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+
+    background: rgba(15, 23, 42, 0.70);
+
+    border-color: #1687FF;
+
+    box-shadow:
+        0 0 0 3px rgba(22, 135, 255, 0.10);
+}
+
+
+/* Select dropdown text */
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: #0F172A;
+
+    color: #E8EEF5;
+}
+
+/* ========================================
+   DESIGNATION FULL WIDTH
+======================================== */
+
+.designation-group {
+    grid-column: 1 / -1;
+}
+
+
+/* ========================================
+   PASSWORD INPUT
+======================================== */
+
+.password-input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+.password-input-wrapper input {
+    padding-right: 45px;
+}
+
+.password-toggle {
+    position: absolute;
+
+    right: 10px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 32px;
+
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    background: transparent;
+
+    border: none;
+
+    color: #555;
+
+    cursor: pointer;
+
+    border-radius: 6px;
+
+    transition: all 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: var(--accent-primary);
+
+    background: rgba(22, 135, 255, 0.08);
+}
+
+.password-toggle:focus {
+    outline: 2px solid var(--accent-primary);
+
+    outline-offset: 2px;
+}
+
+.eye-icon {
+    width: 18px;
+
+    height: 18px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+/* ========================================
+   ERROR MESSAGE
+======================================== */
+
+.error-message {
+    display: block;
+
+    color: #ef4444;
+
+    font-size: 11px;
+
+    margin-top: 5px;
+
+    min-height: 0;
+}
+
+
+/* ========================================
+   REGISTER BUTTON
+======================================== */
+
+.register-button {
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    height: 46px;
+
+    margin-top: 4px;
+
+    padding: 10px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1687ff 0%,
+            #3da5ff 100%
+        );
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    box-shadow:
+        0 4px 16px rgba(22, 135, 255, 0.3);
+}
+
+.register-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 24px rgba(22, 135, 255, 0.5);
+}
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+.register-button:focus {
+    outline: 2px solid #20d9c5;
+
+    outline-offset: 3px;
+}
+
+
+/* ========================================
+   SECURITY NOTICE
+======================================== */
+
+.security-notice {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-top: 22px;
+
+    padding: 13px;
+
+    background: rgba(32, 217, 197, 0.08);
+
+    border: 1px solid rgba(32, 217, 197, 0.1);
+
+    border-radius: 8px;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.security-icon {
+    width: 20px;
+
+    height: 20px;
+
+    flex-shrink: 0;
+
+    color: #20d9c5;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.5;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+/* ========================================
+   LOGIN LINK
+======================================== */
+
+.login-link {
+    text-align: center;
+
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border-color);
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+}
+
+.login-link a {
+    color: var(--accent-primary);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #3da5ff;
+
+    text-decoration: underline;
+}
+
+.login-link a:focus {
+    outline: 2px solid var(--accent-primary);
+
+    outline-offset: 3px;
+
+    border-radius: 4px;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+    position: fixed;
+
+    bottom: 0;
+
+    left: 0;
+
+    right: 0;
+
+    padding: 14px 16px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: var(--text-secondary);
+
+    background: rgba(5, 11, 20, 0.85);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+    z-index: 100;
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.footer p {
+    margin: 0;
+
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   RESPONSIVE - 1024px
+======================================== */
+
+@media (max-width: 1024px) {
+
+    .container {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .branding-section {
+        display: none;
+    }
+
+    .form-section {
+        min-height: 100vh;
+
+        padding: 30px 20px 100px;
+    }
+
+    .form-card {
+        max-width: 620px;
+    }
+}
+
+
+/* ========================================
+   RESPONSIVE - 768px
+======================================== */
+
+@media (max-width: 768px) {
+
+    .form-section {
+        padding: 25px 16px 100px;
+    }
+
+    .form-card {
+        padding: 28px 24px;
+    }
+
+    .form-title {
+        font-size: 23px;
+    }
+
+    .registration-form {
+        grid-template-columns: 1fr;
+    }
+
+    .designation-group {
+        grid-column: auto;
+    }
+
+    .register-button {
+        grid-column: auto;
+    }
+
+    .footer {
+        padding: 12px;
+
+        font-size: 11px;
+    }
+}
+
+
+/* ========================================
+   RESPONSIVE - 600px
+======================================== */
+
+@media (max-width: 600px) {
+
+    .form-card {
+        padding: 24px 20px;
+    }
+
+    .form-title {
+        font-size: 21px;
+    }
+
+    .form-subtitle {
+        font-size: 13px;
+
+        margin-bottom: 22px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group input,
+    .form-group select {
+        height: 46px;
+
+        font-size: 16px;
+    }
+
+    .security-notice {
+        font-size: 11px;
+    }
+
+    .login-link {
+        font-size: 12px;
+    }
+}
+
+
+/* ========================================
+   RESPONSIVE - 480px
+======================================== */
+
+@media (max-width: 480px) {
+
+    .form-section {
+        padding: 20px 12px 95px;
+    }
+
+    .form-card {
+        padding: 22px 17px;
+
+        border-radius: 12px;
+    }
+
+    .form-title {
+        font-size: 20px;
+    }
+
+    .form-subtitle {
+        font-size: 12px;
+    }
+
+    .form-group label {
+        font-size: 11px;
+    }
+
+    .register-button {
+        height: 44px;
+
+        font-size: 12px;
+    }
+}
+
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    * {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
+    }
+}
+
+
+@media (prefers-contrast: more) {
+
+    .form-card {
+        border-width: 2px;
+    }
+
+    .form-group input,
+    .form-group select {
+        border-width: 2px;
+    }
+}

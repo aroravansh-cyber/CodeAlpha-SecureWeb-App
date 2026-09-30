@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, send_from_directory, url_for
+from flask import Flask, request, jsonify, session, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
 from email.message import EmailMessage
@@ -538,7 +538,7 @@ def login():
             "department": faculty["department"],
             "designation": faculty["designation"],
             "photo_url": (
-                url_for("serve_image", filename=faculty["photo"], _external=True)
+                f"/images/{faculty['photo']}"
                 if faculty["photo"]
                 else ""
             )
@@ -575,7 +575,7 @@ def me():
             "department": faculty["department"],
             "designation": faculty["designation"],
             "photo_url": (
-                url_for("serve_image", filename=faculty["photo"], _external=True)
+                f"/images/{faculty['photo']}"
                 if faculty["photo"]
                 else ""
             )
@@ -782,7 +782,7 @@ def students():
         photo_url = ""
 
         if row["photo"]:
-            photo_url = url_for("serve_image", filename=row["photo"], _external=True)
+            photo_url = f"/images/{row['photo']}"
 
         result.append({
             "id": row["id"],
@@ -875,7 +875,7 @@ def get_attendance(lecture_id):
         photo_url = ""
 
         if row["photo"]:
-            photo_url = url_for("serve_image", filename=row["photo"], _external=True)
+            photo_url = f"/images/{row['photo']}"
 
         students_result.append({
             "id": row["id"],
@@ -1211,7 +1211,7 @@ def upload_profile_photo():
     return jsonify({
         "success": True,
         "message": "Profile photo updated.",
-        "photo_url": url_for("serve_image", filename=filename, _external=True)
+        "photo_url": f"/images/{filename}"
     })
 
 
